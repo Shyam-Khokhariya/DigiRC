@@ -1,0 +1,14 @@
+{% extends "root/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+<div class="content-home">
+    {% if 'logged_status' in request.session %}
+        <p>loggedIn - {{ request.session.logged_status }}</p>
+    {% else %}
+        <p>not logged in</p>
+    {% endif %}
+</div>
+
+{% endblock content %}

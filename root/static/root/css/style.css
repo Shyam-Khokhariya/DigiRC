@@ -1,0 +1,284 @@
+html,
+body {
+    color: #000000;
+}
+
+body{
+    min-height: 100%;
+}
+
+/* navigation bar */
+
+.site-header .navbar-nav .nav-link {
+    color: #cbd5db;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+    color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-link.active {
+    font-weight: 500;
+}
+
+.navbar {
+    border-bottom: 2px solid coral;
+}
+
+.navbar-brand {
+    font-size: 22px !important;
+}
+
+.nav-link {
+    font-size: 16px !important;
+}
+
+
+.bg-steel {
+    background-color: #5f788a;
+}
+
+.content-about,
+.content-home {
+    margin-top: 60px;
+}
+
+.content-logout{
+    margin: auto;
+}
+
+.logout-section {
+    background-color: #ffffff;
+    padding: 30px 20px 40px 20px;
+    border: 1px solid #dddddd;
+}
+
+.content-form,
+.profile-section {
+    margin-top: 110px;
+}
+
+.form {
+    background-color: #ffffff;
+    padding: 40px;
+    margin-bottom: 50px;
+    border: 1px solid #dddddd;
+}
+
+.login-form{
+    background-color: #ffffff;
+    padding: 20px;
+    margin-bottom: 30px;
+    border: 1px solid #dddddd;
+    border-radius: 25px;
+}
+
+.login-create{
+    background-color: rgb(250,250,250);
+    padding: 20px;
+    border: 1px solid #dddddd;   
+    border-radius: 15px;
+}
+
+.login-create>.form-group{
+    margin-bottom: 0rem;
+}
+
+.login-create>.form-group>p{
+    font-size: 15px;
+    margin-bottom: 0rem;
+}
+
+footer {
+    padding: 20px 50px 20px 50px;
+    color: white;
+    width: 100% !important;
+    font-size: 18px !important;
+}
+
+footer>.container>.row>.col-sm-6>p {
+    margin-bottom: 0rem;
+}
+
+.searchbox {
+    padding: 30px;
+}
+
+.social-links {
+    font-size: 25px;
+    color: white;
+    margin-right: 5px;
+    transition: transform .2s;
+}
+
+.social-links:hover {
+    transform: scale(1.25);
+}
+
+.services {
+    width: 60%;
+    margin-bottom: 16px;
+}
+
+.about-img,
+.login-img {
+    width: 25px;
+}
+
+.home-img,
+.profile-img,
+.logout-img {
+    width: 20px;
+}
+
+.brightness {
+    -webkit-filter: brightness(50%);
+    filter: brightness(50%);
+}
+
+.carousel-inner img {
+    width: 100%;
+}
+
+.carousel-indicators {
+    z-index: 1;
+}
+
+.carousel-caption {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.carousel-caption h2 {
+    font-size: 600%;
+    text-transform: capitalize;
+    text-shadow: 1px 1px 10px #000000;
+}
+
+.main-logo {
+    width: 70px;
+    height: 70px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.login-logo {
+    font-size: 24px;
+    color: #222222;
+    font-weight: 300;
+    margin: 50px auto 20px auto;
+}
+
+.logout-logo{
+    font-size: 30px;
+    color: #777777;
+    margin: 50px auto 30px auto;
+}
+
+.sign-out{
+    font-size: 24px;
+    color: #2f2f2f;
+    font-weight: 300;
+    padding: 10px;
+}
+
+.btn-signout{
+    width: 80%;
+    background-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
+    border: 1px solid rgba(27,31,35,.2);
+}
+
+.btn-signout:hover {
+    background-color: #e6ebf1;
+    background-image: linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);
+    background-position: -.5em;
+    border-color: rgba(27,31,35,.35);
+}
+
+.nav-align{
+    text-align: center;
+}
+
+@media only screen and (max-width:768px){
+    .nav-align {
+        text-align: left;
+    }
+}
+
+.register-form,
+.content-base-profile{
+    margin: 100px auto 50px auto;
+}
+
+.register-form,
+.profile-form {
+    border: 1px solid #efefef;
+    padding: 40px 50px;
+    background-color: #ffffff;
+}
+
+.account-img {
+    height: 125px;
+    width: 125px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+}
+
+.profile-photo{
+    height: 30px;
+    width: 28px;
+}
+
+.btn-save{
+    width: 15%;
+}
+
+.logo-image{
+    width: 175px;
+}
+
+.logo-image-login{
+    width: 200px;
+}
+
+.font-icons>a{
+    padding-left: 20px;
+}
+
+.navbar-expand-md,
+.navbar-nav,
+.nav-link{
+    padding-left: 0rem !important;
+}
+
+.forgot-password{
+    font-size: 14px;
+}
+
+.required-field::after{
+    content: '*';
+    color: #ee0000;
+}
+
+.side-group{
+    list-style-type: none;
+    border: 1px solid #dddddd;
+    padding:0px;
+}
+
+.list-item{
+    padding: 10px;
+    border-bottom: 1px solid #dddddd;
+    color: #000000;
+}
+
+.list-item>a{
+    color: #000000;
+}
+
+.list-item-active{
+    border-left: 2px solid coral;
+}
