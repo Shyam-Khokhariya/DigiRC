@@ -22,4 +22,4 @@ class LoginRequiredMiddleware:
                 return redirect('home')
         else:
             if "logout" in request.path:
-                return redirect('login')
+                return redirect('home')

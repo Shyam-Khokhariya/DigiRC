@@ -16,7 +16,7 @@
             background-color: rgb(250, 250, 250);
         }
     </style>
-    <link rel="stylesheet" href="{% static 'root/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'root/css/style2.css' %}">
     <link rel="shortcut icon" type="image/png" href="{% static 'root/img/favicon.png' %}">
 
 </head>
@@ -38,7 +38,7 @@
             {% csrf_token %}
             <fieldset class="form-group">
                 <!-- Login Form -->
-                
+				<legend class="border-bottom mb-4 pb-2">Welcome {{ usertype }}</legend>
                 <label for="email" class="required-field control-label">Email</label>
                 <input type="email" name="email" class="form-control" required="required" title="Enter Email ID">
                 <br>
@@ -53,15 +53,6 @@
                 <button class="btn btn-outline-success btn-block py-2" type="submit">Login</button>
             </div>
         </form>
-    </div>
-    <!-- Create Account Link -->
-    <div class="content-login col-md-3 login-create ml-auto mr-auto">
-        <fieldset class="form-group">
-            <p class="text-center">
-                New to DigiRC?
-                <a href="{% url 'register' %}">Create an account.</a>
-            </p>
-        </fieldset>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

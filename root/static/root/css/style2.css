@@ -1,0 +1,650 @@
+html,
+body {
+    color: #000000;
+}
+
+body{
+    min-height: 100%;
+}
+
+/* navigation bar */
+
+.site-header .navbar-nav .nav-link {
+    color: #cbd5db;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+    color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-link.active {
+    font-weight: 500;
+}
+
+.navbar {
+    border-bottom: 2px solid coral;
+}
+
+.navbar-brand {
+    font-size: 22px !important;
+}
+
+.nav-link {
+    font-size: 16px !important;
+}
+
+
+.bg-steel {
+    background-color: #5f788a;
+}
+
+.content-home {
+    margin-top: 60px;
+}
+
+F.logout-section {
+    background-color: #ffffff;
+    padding: 30px 20px 40px 20px;
+    border: 1px solid #dddddd;
+}
+
+.content-form,
+.profile-section {
+    margin-top: 110px;
+}
+
+.form {
+    background-color: #ffffff;
+    padding: 40px;
+    margin-bottom: 50px;
+    border: 1px solid #dddddd;
+}
+
+.login-form{
+    background-color: #ffffff;
+    padding: 20px;
+    margin-top: 100px;
+    border: 1px solid #dddddd;
+    border-radius: 25px;
+}
+
+.login-create{
+    background-color: rgb(250,250,250);
+    padding: 20px;
+    border: 1px solid #dddddd;   
+    border-radius: 15px;
+}
+
+.login-create>.form-group{
+    margin-bottom: 0rem;
+}
+
+.login-create>.form-group>p{
+    font-size: 15px;
+    margin-bottom: 0rem;
+}
+
+.floating-button{
+    
+}
+
+footer {
+    padding: 20px 50px 20px 50px;
+    color: white;
+    width: 100% !important;
+    font-size: 18px !important;
+}
+
+footer>.container>.row>.col-sm-6>p {
+    margin-bottom: 0rem;
+}
+
+.searchbox {
+    padding: 30px;
+}
+
+.social-links {
+    font-size: 25px;
+    color: white;
+    margin-right: 5px;
+    transition: transform .2s;
+}
+
+.social-links:hover {
+    transform: scale(1.25);
+}
+
+.services {
+    width: 60%;
+    margin-bottom: 16px;
+}
+
+.cart-btn {
+    background-color: #28a745;
+    border: none;
+    outline: none;
+    width: 40px;
+    height: 36px;
+    cursor: pointer;
+    margin: 5px;
+    padding: 5px 10px 5px 5px;
+    border-radius: 5px;
+}
+
+.cart-btn:hover {
+    background-color: #218838;
+    border: none;
+    outline: none;
+}
+
+.cart-img,
+.menu-img {
+    width: 23px;
+}
+
+.about-img,
+.login-img {
+    width: 25px;
+}
+
+.home-img,
+.profile-img,
+.logout-img {
+    width: 20px;
+}
+
+.brightness {
+    -webkit-filter: brightness(50%);
+    filter: brightness(50%);
+}
+
+.carousel-inner img {
+    width: 100%;
+}
+
+.carousel-indicators {
+    z-index: 1;
+}
+
+.carousel-caption {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.carousel-caption h2 {
+    font-size: 600%;
+    text-transform: capitalize;
+    text-shadow: 1px 1px 10px #000000;
+}
+
+.main-logo {
+    width: 70px;
+    height: 70px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.login-logo {
+    font-size: 24px;
+    color: #222222;
+    font-weight: 300;
+    margin: 50px auto 20px auto;
+}
+
+.logout-logo{
+    font-size: 30px;
+    color: #777777;
+    margin: 50px auto 30px auto;
+}
+
+.sign-out{
+    font-size: 24px;
+    color: #2f2f2f;
+    font-weight: 300;
+    padding: 10px;
+}
+
+.btn-signout{
+    width: 80%;
+    background-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
+    border: 1px solid rgba(27,31,35,.2);
+}
+
+.btn-signout:hover {
+    background-color: #e6ebf1;
+    background-image: linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);
+    background-position: -.5em;
+    border-color: rgba(27,31,35,.35);
+}
+
+.nav-align{
+    text-align: center;
+}
+
+@media only screen and (max-width:768px){
+    .nav-align {
+        text-align: left;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .shopping-cart {
+        margin: 0;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+    }
+
+    .column-labels {
+        display: none;
+    }
+
+    .product-image {
+        float: right;
+        width: auto;
+    }
+
+    .product-image img {
+        margin: 0 0 10px 10px;
+    }
+
+    .product-details {
+        float: none;
+        margin-bottom: 10px;
+        width: auto;
+    }
+
+    .product-price {
+        clear: both;
+        width: 70px;
+    }
+
+    .product-quantity {
+        width: 100px;
+    }
+
+    .product-quantity input {
+        margin-left: 20px;
+    }
+
+    .product-quantity:before {
+        content: "x";
+    }
+
+    .product-removal {
+        width: auto;
+    }
+
+    .product-line-price {
+        float: right;
+        width: 70px;
+    }
+}
+
+/* Make more adjustments for phone */
+@media screen and (max-width: 350px) {
+    .product-removal {
+        float: right;
+    }
+
+    .product-line-price {
+        float: right;
+        clear: left;
+        width: auto;
+        margin-top: 10px;
+    }
+
+    .product .product-line-price:before {
+        content: "Item Total: $";
+    }
+
+    .totals .totals-item label {
+        width: 60%;
+    }
+
+    .totals .totals-item .totals-value {
+        width: 40%;
+    }
+}
+
+.product-image {
+    float: left;
+    width: 20%;
+}
+
+.product-details {
+    float: left;
+    width: 37%;
+}
+
+.product-price {
+    float: left;
+    width: 12%;
+}
+
+.product-quantity {
+    float: left;
+    width: 10%;
+}
+
+.product-removal {
+    float: left;
+    width: 9%;
+}
+
+.product-line-price {
+    float: left;
+    width: 12%;
+    text-align: right;
+}
+
+/* This is used as the traditional .clearfix class */
+.group:before,
+.shopping-cart:before,
+.column-labels:before,
+.product:before,
+.totals-item:before,
+.group:after,
+.shopping-cart:after,
+.column-labels:after,
+.product:after,
+.totals-item:after {
+    content: "";
+    display: table;
+}
+
+.group:after,
+.shopping-cart:after,
+.column-labels:after,
+.product:after,
+.totals-item:after {
+    clear: both;
+}
+
+.group,
+.shopping-cart,
+.column-labels,
+.product,
+.totals-item {
+    zoom: 1;
+}
+
+/* Apply clearfix in a few places */
+/* Apply dollar signs */
+.product .product-price:before,
+.product .product-line-price:before,
+.totals-value:before {
+    content: "Rs. ";
+}
+
+/* Body/Header stuff */
+
+
+.shopping-label {
+    color: #aaa;
+}
+
+.shopping-cart {
+    margin-top: -45px;
+}
+
+/* Column headers */
+.column-labels label {
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.column-labels .product-image,
+.column-labels .product-details,
+.column-labels .product-removal {
+    text-indent: -9999px;
+}
+
+/* Product entries */
+.product {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.product .product-image {
+    text-align: center;
+}
+
+.product .product-image img {
+    width: 100px;
+}
+
+.product .product-details .product-title {
+    margin-right: 20px;
+    font-family: "HelveticaNeue-Medium", "Helvetica Neue Medium";
+}
+
+.product .product-details .product-description {
+    margin: 5px 20px 5px 0;
+    line-height: 1.4em;
+}
+
+.product .product-quantity input {
+    width: 40px;
+}
+
+.product .remove-product {
+    border: 0;
+    padding: 4px 8px;
+    background-color: #c66;
+    color: #fff;
+    font-family: "HelveticaNeue-Medium", "Helvetica Neue Medium";
+    font-size: 12px;
+    border-radius: 3px;
+}
+
+.product .remove-product:hover {
+    background-color: #a44;
+}
+
+/* Totals section */
+.totals .totals-item {
+    float: right;
+    clear: both;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.totals .totals-item label {
+    float: left;
+    clear: both;
+    width: 79%;
+    text-align: right;
+}
+
+.totals .totals-item .totals-value {
+    float: right;
+    width: 21%;
+    text-align: right;
+}
+
+.totals .totals-item-total {
+    font-family: "HelveticaNeue-Medium", "Helvetica Neue Medium";
+}
+
+.checkout {
+    float: right;
+    border: 0;
+    margin-top: 20px;
+    padding: 6px 25px;
+    background-color: #6b6;
+    color: #fff;
+    font-size: 25px;
+    border-radius: 3px;
+}
+
+.checkout:hover {
+    background-color: #494;
+}
+
+.register-form,
+.profile-form {
+    border: 1px solid #efefef;
+    padding: 50px;
+    background-color: #ffffff;
+}
+
+.account-img {
+    height: 125px;
+    width: 125px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+}
+
+.profile-photo{
+    height: 30px;
+    width: 28px;
+}
+
+.btn-save{
+    width: 15%;
+}
+
+.logo-image{
+    width: 175px;
+}
+
+.logo-image-login{
+    width: 200px;
+}
+
+.font-icons>a{
+    padding-left: 20px;
+}
+
+.navbar-expand-md,
+.navbar-nav,
+.nav-link{
+    padding-left: 0rem !important;
+}
+
+.forgot-password{
+    font-size: 14px;
+}
+
+/*menu.html*/
+
+.content-menu{
+    margin: 100px auto 20px auto;
+    padding-left: 30px;
+}
+
+.tabs-menu{
+    box-shadow: 0 2px 4px 0 rgba(48,56,97,.2);
+    padding: 20px 0px;
+}
+
+.tablink{
+    padding: 20px 15px 20px 100px;
+    margin-right: 10px;
+    background-color: white;
+    color: black;
+}
+
+.tablink:active{
+    background-color: coral;
+    color: white;
+}
+
+.item-img{
+    width: 100%;
+    height: 70%;
+}
+
+/*Add food_form.html*/
+
+.content-base-profile{
+    margin: 120px 0px 50px 0px;
+    padding: 0px 50px;
+    min-height: 100vh;
+}
+
+.content-food-add{
+    border: 1px solid #efefef;
+    padding: 50px;
+}
+
+.btn-add{
+    padding: 10px 30px;
+}
+
+.side-group{
+    list-style-type: none;
+    border: 1px solid #dddddd;
+    padding:0px;
+}
+
+.list-item{
+    padding: 10px;
+    border-bottom: 1px solid #dddddd;
+    color: #000000;
+}
+
+.list-item>a{
+    color: #000000;
+}
+
+.list-item-active{
+    border-left: 2px solid coral;
+}
+
+th, td{
+    padding: 15px 20px;
+}
+
+.food-image{
+    width: 50px;
+}
+
+.article-title {
+  color: #444444;
+}
+
+a.article-title:hover {
+  color: #428bca;
+  text-decoration: none;
+}
+
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.article-content {
+  white-space: pre-line;
+}
+
+.article-img {
+  height: 65px;
+  width: 65px;
+  margin-right: 16px;
+}
+
+.article-metadata {
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #e3e3e3
+}
+
+.article-metadata a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+.article-svg {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}

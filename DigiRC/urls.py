@@ -21,5 +21,3 @@ urlpatterns = [
     path('', include('root.urls')),
     path('', include('users.urls')),
 ]
-
-handler404 = 'root.views.page_not_found'

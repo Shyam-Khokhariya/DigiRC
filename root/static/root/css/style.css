@@ -11089,7 +11089,7 @@ h5,
     left: 0;
     top: 0;
     margin-top: -130px;
-    background: #fff !important;
+    background: rgba(0,0,0,0.9) !important;
     -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 }
@@ -11163,7 +11163,7 @@ h5,
 }
 
 .ftco-navbar-light.scrolled .navbar-brand {
-    color: #000000;
+    color: #ffffff;
 }
 
 .navbar-brand {
