@@ -47,22 +47,8 @@ class Home(TemplateView):
         return user_details(self, context={'app': app, 'title': 'Home'})
 
 
-class About(TemplateView):
-    template_name = 'root/about.html'
+class Contact(TemplateView):
+    template_name = 'root/contact.html'
 
     def get_context_data(self, **kwargs):
-        return user_details(self, context={'app': app, 'title': 'About'})
-
-
-class NewRegistration(TemplateView):
-    template_name = 'root/new_register.html'
-
-    def get_context_data(self, **kwargs):
-        return user_details(self, context={'app': app, 'title': 'New Registration'})
-
-
-class Display(TemplateView):
-    template_name = 'root/display.html'
-
-    def get_context_data(self, **kwargs):
-        return user_details(self, context={'app': app, 'title': 'Display'}).update(get_vehicles(self))
+        return user_details(self, context={'app': app, 'title': 'Contact'})

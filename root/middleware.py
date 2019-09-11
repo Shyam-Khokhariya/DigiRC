@@ -18,7 +18,7 @@ class LoginRequiredMiddleware:
         if 'admin' in request.path:
             return redirect('home')
         elif 'logged_status' in request.session:
-            if any(path in request.path for path in {'login', 'register'}):
+            if any(path in request.path for path in {'login'}):
                 return redirect('home')
         else:
             if "logout" in request.path:
