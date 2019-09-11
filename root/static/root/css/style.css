@@ -4994,11 +4994,15 @@ input[type="button"].btn-block {
     display: none;
 }
 
-.navbar-light .navbar-brand {
+.navbar-light{
     color: rgba(0, 0, 0, 0.9);
 }
 
-.navbar-light .navbar-brand:hover,
+.navbar-brand{
+    color: #000000;
+}
+
+.navbar-light,
 .navbar-light .navbar-brand:focus {
     color: rgba(0, 0, 0, 0.9);
 }
@@ -5045,13 +5049,17 @@ input[type="button"].btn-block {
     color: rgba(0, 0, 0, 0.9);
 }
 
-.navbar-dark .navbar-brand {
+.navbar-dark {
     color: #fff;
 }
 
-.navbar-dark .navbar-brand:hover,
+.navbar-dark,
 .navbar-dark .navbar-brand:focus {
     color: #fff;
+}
+
+.navbar-brand:hover{
+    color: #000000;
 }
 
 .navbar-dark .navbar-nav .nav-link {
@@ -10960,11 +10968,11 @@ h5,
 .ftco-navbar-light {
     background: transparent !important;
     position: absolute;
-    top: 20px;
+    top: 0;
     left: 0;
     right: 0;
     z-index: 3;
-    padding: 0;
+    padding: 10px;
 }
 
 @media (max-width: 991.98px) {
@@ -10976,7 +10984,7 @@ h5,
     }
 }
 
-.ftco-navbar-light .navbar-brand {
+.ftco-navbar-light {
     color: #fff;
 }
 
@@ -11142,7 +11150,6 @@ h5,
 .ftco-navbar-light.scrolled .nav-link {
     padding-top: 0.9rem !important;
     padding-bottom: 0.9rem !important;
-    color: #000000 !important;
 }
 
 .ftco-navbar-light.scrolled .nav-link.active {
@@ -11162,7 +11169,12 @@ h5,
     transition: .3s all ease-out;
 }
 
-.ftco-navbar-light.scrolled .navbar-brand {
+.ftco-navbar-light.scrolled {
+    color: #ffffff;
+}
+
+.scrolled>.container>.navbar-brand,
+.scrolled>.container>#ftco-nav>.navbar-nav>.nav-link>a{
     color: #ffffff;
 }
 
@@ -11332,7 +11344,7 @@ h5,
 
 .owl-carousel.home-slider {
     position: relative;
-    height: 700px;
+    height: 600px;
     z-index: 0;
 }
 
@@ -11340,7 +11352,7 @@ h5,
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    height: 700px;
+    height: 600px;
     position: relative;
     z-index: 0;
 }
@@ -11362,7 +11374,7 @@ h5,
 }
 
 .owl-carousel.home-slider .slider-item .slider-text {
-    height: 700px;
+    height: 600px;
     position: relative;
 }
 
@@ -11496,9 +11508,10 @@ h5,
 }
 
 .hero {
-    height: 700px;
+    height: 600px;
     position: relative;
     z-index: 0;
+    margin-top: 66px;
 }
 
 .hero .container-wrap {
@@ -13885,10 +13898,16 @@ textarea.form-control {
 }
 
 .nav-link > a{
-    color: rgba(255,255,255,0.7);
+    color: rgba(0,0,0,0.7);
+    padding: 0px 10px;
+    font-size: 16px;
 }
 
 .nav-link > a:hover{
-    color: #ffffff;
+    color: #000000;
+}
+
+.align-login-box{
+   padding-top: 50px;
 }
 

@@ -21,5 +21,5 @@ class LoginRequiredMiddleware:
             if any(path in request.path for path in {'login'}):
                 return redirect('home')
         else:
-            if "logout" in request.path:
+            if any(path in request.path for path in {'logout', 'dashboard'}):
                 return redirect('home')

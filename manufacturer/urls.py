@@ -15,13 +15,9 @@ Including another URLconf
 """
 from django.urls import path, include
 from . import views
+from users import views as users_views
 
 urlpatterns = [
-    path('manufacturer/', include('manufacturer.urls')),
-    path('dealer/', views.dealer, name='dealer-login'),
-    path('insurance/', views.insurance, name='insurance-login'),
-    path('rto/', views.rto, name='rto-login'),
-    path('buyer/', views.buyer, name='buyer-login'),
-    path('logout/', views.logout, name='logout'),
-    path('forgot-password/', views.password_reset, name='forgot-password'),
+    path('', users_views.manufacturer, name='manu-login'),
+    path('dashboard/', views.Dashboard.as_view(), name='manu-dashboard'),
 ]

@@ -1,0 +1,12 @@
+{% extends 'root/base_authorized.html' %}
+{% load static %}
+{% block content %}
+<div class="dashboard">
+    <a href="#">Add New Vehicles</a>
+    <br/>
+    <a href="#">Registered vehicles</a>
+    <br/><a href="#">Pending Registrations</a>
+    <br/>
+    <a href="{% url 'logout' %}">logout</a>
+</div>
+{% endblock content %}

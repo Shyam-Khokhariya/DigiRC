@@ -4,11 +4,6 @@
 {% block content %}
 
 <div class="content-home">
-    {% if 'logged_status' in request.session %}
-    <script>alert('logged in')</script>
-    {% else %}
-    <script>alert('not logged in')</script>
-    {% endif %}
     <div class="hero">
         <section class="home-slider owl-carousel">
             <div class="slider-item" style="background-image: url('{% static 'root/images/hero_1.jpg' %}') ">

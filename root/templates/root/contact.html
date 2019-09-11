@@ -3,20 +3,25 @@
 {% load static %}
 {% block content %}
 
-    <div class="hero-wrap" style="background-image: url('{% static 'root/images/hero_1.jpg' %}')">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text d-flex align-itemd-end justify-content-center">
-          <div class="col-md-9 ftco-animate text-center d-flex align-items-end justify-content-center">
-          	<div class="text">
-	            <h1 class="mb-4 bread">Contact us</h1>
+    <div class="hero">
+        <section class="home-slider owl-carousel">
+          <div class="hero-wrap" style="background-image: url('{% static 'root/images/hero_1.jpg' %}')">
+            <div class="overlay"></div>
+            <div class="container">
+              <div class="row no-gutters slider-text d-flex align-itemd-end justify-content-center">
+                <div class="col-md-9 ftco-animate text-center d-flex align-items-end justify-content-center">
+                  <div class="text">
+                      <h1 class="mb-4 bread">Contact us</h1>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </section>
     </div>
 
-		<section class="ftco-section contact-section bg-light">
+
+    <section class="ftco-section contact-section bg-light">
       <div class="container">
         <div class="row d-flex mb-5 contact-info">
           <div class="col-md-12 mb-4">
@@ -30,7 +35,7 @@
           </div>
           <div class="col-md-4 d-flex">
           	<div class="info bg-white p-4">
-	            <p><span>Email:</span> <a href="mailto:info@yoursite.com">info@yoursite.com</a></p>
+	            <p><span>Email:</span> <a>digirc2019@gmail.com</a></p>
 	          </div>
           </div>
           <div class="col-md-4 d-flex">
