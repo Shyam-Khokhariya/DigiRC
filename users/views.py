@@ -10,7 +10,7 @@ from django.views.generic import TemplateView
 
 app = settings.APP_NAME
 
-# auth = settings.FIREBASE.auth()
+auth = settings.FIREBASE.auth()
 
 database = settings.FIREBASE.database()
 
