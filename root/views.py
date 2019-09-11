@@ -16,8 +16,22 @@ def page_not_found(request, exception):
         return redirect(request.path[0:request.path.rindex("/")])
 
 
-def user_details(self):
-    context = {'app': app, 'title': 'Home'}
+def get_vehicles(self):
+    context = {}
+    if 'logged_status' in self.request.session:
+        user = self.request.session['user']
+        vehicles_info = database.child('users').child(str(user['userId'])).child('vehicles').get()
+        vehicle = {}
+        for vehicles in vehicles_info:
+            vehicle.clear()
+            for info in vehicles:
+                vehicle.update({info.key(): info.val()})
+            context.update({vehicles.key(): vehicle})
+            print(context)
+    return context
+
+
+def user_details(self, context):
     if 'logged_status' in self.request.session:
         user = self.request.session['user']
         user_info = database.child('users').child(str(user['userId'])).child('details').get()
@@ -30,11 +44,25 @@ class Home(TemplateView):
     template_name = 'root/home.html'
 
     def get_context_data(self, **kwargs):
-        return user_details(self)
+        return user_details(self, context={'app': app, 'title': 'Home'})
 
 
 class About(TemplateView):
     template_name = 'root/about.html'
 
     def get_context_data(self, **kwargs):
-        return user_details(self)
+        return user_details(self, context={'app': app, 'title': 'About'})
+
+
+class NewRegistration(TemplateView):
+    template_name = 'root/new_register.html'
+
+    def get_context_data(self, **kwargs):
+        return user_details(self, context={'app': app, 'title': 'New Registration'})
+
+
+class Display(TemplateView):
+    template_name = 'root/display.html'
+
+    def get_context_data(self, **kwargs):
+        return user_details(self, context={'app': app, 'title': 'Display'}).update(get_vehicles(self))

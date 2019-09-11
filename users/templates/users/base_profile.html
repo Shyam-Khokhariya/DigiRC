@@ -31,6 +31,8 @@
             $('.list-profile').addClass('list-item-active');
         {% elif "new" in request.path %}
             $('.list-new').addClass('list-item-active');
+        {% elif "display" in request.path %}
+            $('.list-display').addClass('list-item-active');
         {% endif %}
     </script>
 {% endblock script %}

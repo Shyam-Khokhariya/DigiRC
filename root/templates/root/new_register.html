@@ -1,0 +1,25 @@
+{% extends "root/base_profile.html" %}
+{% block profile_content %}
+	<div class="vehicle-form">
+		<!-- Messages Display Here -->
+		{% if messages %}
+		{% for message in messages %}
+		<div class="alert alert-{{ message.tags }}">
+			{{ message }}
+		</div>
+		{% endfor %}
+		{% endif %}
+		<!-- Messages End Here -->
+		<form method="POST">
+			<!-- This is important for security purpose -->
+			{% csrf_token %}
+			<fieldset class="form-group">
+				<legend class="border-bottom mb-1 pb-2">Add New Vehicle</legend>
+                {{ form|crispy }}
+			</fieldset>
+			<div class="form-group">
+				<button class="btn btn-outline-info" type="submit">Add</button>
+			</div>
+		</form>
+	</div>
+{% endblock profile_content %}

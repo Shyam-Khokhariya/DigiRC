@@ -58,17 +58,10 @@
                             </span>
                     </a>
                     {% else %}
-                    <span class="nav-link nav-item nav-align" style="vertical-align: middle;margin-right: 10px">Welcome Guest</span>
                     <a class="nav-link nav-item nav-align" href="{% url 'login' %}">
                         <img class="login-img" src="{% static 'root/img/navbar/user.png'%}">
                         <span style="vertical-align: middle;margin-right: 10px">
                                 Sign In
-                            </span>
-                    </a>
-                    <a class="nav-link nav-item nav-align" href="{% url 'register' %}">
-                        <img class="login-img" src="{% static 'root/img/navbar/user.png'%}">
-                        <span style="vertical-align: middle;margin-right: 10px">
-                                Sign Up
                             </span>
                     </a>
                     {% endif %}
