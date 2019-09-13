@@ -22,7 +22,7 @@ def user_details(self, context):
     if 'logged_status' in self.request.session:
         user = self.request.session['user']
         user_info = database.child('users').child(str(user['userId'])).child('details').get()
-        if user_info is not None:
+        if user_info.val() is not None:
             for info in user_info.each():
                 context.update({info.key(): info.val()})
     return context

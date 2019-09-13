@@ -5054,7 +5054,7 @@ input[type="button"].btn-block {
 }
 
 .navbar-dark,
-.navbar-dark .navbar-brand:focus {
+.navbar-dark{
     color: #fff;
 }
 
@@ -12433,7 +12433,7 @@ h5,
         display: none;
     }
 }
-
+/*
 .form-control {
     height: 52px !important;
     background: #fff !important;
@@ -12443,11 +12443,7 @@ h5,
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
 }
-
-.form-control:focus,
-.form-control:active {
-    border-color: #000000;
-}
+*/
 
 textarea.form-control {
     height: inherit !important;
@@ -13897,6 +13893,8 @@ textarea.form-control {
     }
 }
 
+/* Added CSS */
+
 .nav-link > a{
     color: rgba(0,0,0,0.7);
     padding: 0px 10px;
@@ -13911,3 +13909,12 @@ textarea.form-control {
    padding-top: 50px;
 }
 
+.btn-outline-success{
+    border-radius: 5px;
+}
+
+.add-vehicle-form{
+    border: 1px solid #efefef;
+    padding: 30px 50px;
+    margin: 100px auto 30px 310px;
+}

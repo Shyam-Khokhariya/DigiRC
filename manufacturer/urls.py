@@ -20,4 +20,5 @@ from users import views as users_views
 urlpatterns = [
     path('', users_views.manufacturer, name='manu-login'),
     path('dashboard/', views.Dashboard.as_view(), name='manu-dashboard'),
+    path('dashboard/add/', views.add_vehicle, name='manu-add-vehicle'),
 ]

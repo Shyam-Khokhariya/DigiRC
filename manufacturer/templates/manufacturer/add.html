@@ -1,10 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends 'manufacturer/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'root/css/style.css' %}">
+{% endblock style %}
+{% block content %}
+<div class="add-vehicle-form">
+    <div class="row">
+        <legend class="border-bottom mb-4 pb-2 text-center">Add Vehicle</legend>
+        <div class="col-md-6">
+            <form method="POST">
+                <!-- This is important for security purpose -->
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    {{ form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-success btn-block py-2" name="form1" type="submit">Add</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6 ml-auto">
+            <form method="POST">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <label for="xls_file">Upload Datasheet:</label>
+                    <input type="file" name="xls_file" id="xls_file" required="True" class="form-control">
+                </fieldset>
+                <br>
+                <!-- Submit Button -->
+                <div class="form-group">
+                    <button class="btn btn-outline-success btn-block py-2" name="form2" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
