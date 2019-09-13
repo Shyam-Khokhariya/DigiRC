@@ -1,5 +1,5 @@
 from django import forms
-from .models import ManufacturerVehicleInfo
+from .models import ManufacturerVehicleInfo, ManufacturerVehicleDatasheet
 import datetime
 
 month = [('Jan', 'January'), ('Feb', 'February'), ('Mar', 'March'),
@@ -39,3 +39,11 @@ class AddVehicleForm(forms.ModelForm):
         fields = ['chassis_no', 'engine_no', 'fuel_type', 'maker', 'model', 'vehicle_class', 'body_type',
                   'vehicle_type', 'manufacture_month', 'manufacture_year', 'number_of_cylinders',
                   'horse_power', 'cubic_capacity', 'wheel_base', 'seating_capacity', 'unladen_weight', 'color']
+
+
+class AddVehicleFileForm(forms.ModelForm):
+    xls_file = forms.FileField(label='Upload Datasheet')
+
+    class Meta:
+        model = ManufacturerVehicleDatasheet
+        fields = ['xls_file']

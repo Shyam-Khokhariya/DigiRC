@@ -19,3 +19,7 @@ class ManufacturerVehicleInfo(models.Model):
     seating_capacity = models.CharField(max_length=4)
     unladen_weight = models.CharField(max_length=10)    # Weight of Vehicle when not loaded with goods
     color = models.TextField()
+
+
+class ManufacturerVehicleDatasheet(models.Model):
+    xls_file = models.FileField(upload_to='datasheets/')
