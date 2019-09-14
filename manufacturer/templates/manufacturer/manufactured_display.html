@@ -1,0 +1,37 @@
+{% extends 'manufacturer/base.html' %}
+{% load static %}
+{% load tags_extra %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'root/css/style.css' %}">
+{% endblock style %}
+{% block content %}
+<div class="display-manufactured-data">
+    {% if vehicles|length > 0 %}
+    <table class="table-striped text-center" width="100%">
+        <tr>
+            <th>Sr. No</th>
+            <th>Chassis No</th>
+            <th>Model</th>
+            <th>Fuel Used</th>
+            <th>Mfg. Month/Year</th>
+            <th>Price</th>
+            <th>status</th>
+        </tr>
+
+        {% for vehicle in vehicles %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td><a href="{% url 'manu-display-vehicle-detail' vehicle.chassis_no %}">{{ vehicle.chassis_no }}</a></td>
+            <td>{{ vehicle.model }}</td>
+            <td>{{ vehicle.fuel_type }}</td>
+            <td>{{ vehicle.manufacture_month|month_name }}, {{ vehicle.manufacture_year }}</td>
+            <td>{{ vehicle.price }}</td>
+            <td>{{ vehicle.status }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <h4>No Vehicles Manufactured</h4>
+    {% endif %}
+</div>
+{% endblock content %}

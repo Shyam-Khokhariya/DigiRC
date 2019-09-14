@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='ManufacturerVehicleDatasheet',
+            name='ManufacturerVehicleDataSheet',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('xls_file', models.FileField(upload_to='datasheets/')),

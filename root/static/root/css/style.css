@@ -69,9 +69,7 @@ body {
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #212529;
     text-align: left;
-    background-color: #fff;
 }
 
 [tabindex="-1"]:focus {
@@ -10920,11 +10918,9 @@ html {
 
 body {
     font-family: "Poppins", Arial, sans-serif;
-    background: #fff;
     font-size: 15px;
     line-height: 1.8;
     font-weight: 400;
-    color: #666666;
     overflow-x: hidden;
 }
 
@@ -13913,8 +13909,20 @@ textarea.form-control {
     border-radius: 5px;
 }
 
-.add-vehicle-form{
-    border: 1px solid #efefef;
+.add-vehicle-form,
+.display-manufactured-data,
+.display-vehicle-data{
     padding: 30px 50px;
-    margin: 100px auto 30px 310px;
+    margin: 100px 0px 30px 310px;
+    width: 75%;
+}
+
+.add-vehicle-form{
+    background-color: #ffffff;
+    border: 1px solid #777777;
+}
+
+#message{
+    color: red;
+    font-size: 12px;
 }

@@ -1,0 +1,27 @@
+{% extends 'manufacturer/base.html' %}
+{% load static %}
+{% load tags_extra %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'root/css/style.css' %}">
+{% endblock style %}
+{% block content %}
+<div class="display-vehicle-data">
+    <div class="container bg-white">
+        {% for key,value in vehicle.items %}
+        {% if 'manufacture_month' == key %}
+            <div class="row p-3">
+                <div class="col-md-3">{{ key }}</div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-3">{{ value|month_name }}</div>
+            </div>
+        {% else %}
+            <div class="row p-3">
+                <div class="col-md-3">{{ key }}</div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-3">{{ value }}</div>
+            </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

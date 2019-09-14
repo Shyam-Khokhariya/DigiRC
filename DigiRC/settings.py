@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'manufacturer.templatetags',
     'fontawesome',
     'crispy_forms',
     'root.apps.RootConfig',

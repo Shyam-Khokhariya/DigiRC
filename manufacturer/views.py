@@ -1,10 +1,13 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView
 from django.shortcuts import render, redirect
 from django.conf import settings
 from .forms import AddVehicleForm, AddVehicleFileForm
 from django.contrib import messages
 from django.views import View
-import openpyxl, os
+import os
+import openpyxl
+import _csv
+import pandas as pd
 
 app = settings.APP_NAME
 
@@ -43,36 +46,77 @@ def add_vehicle(request):
                     vehicle = vehicle.__dict__
                     for key in ['_state', 'id']:
                         vehicle.pop(key)
-                    print(vehicle)
                     user = request.session['user']
-                    database.child('manufacturer').child(str(user['userId'])).child('vehicles').child().set(vehicle)
+                    database.child('manufacturer').child(str(user['userId'])).child('vehicles').child(
+                        vehicle.get('chassis_no')).set(vehicle)
+                    form1 = AddVehicleForm()
+                    messages.success(request, f'Saved Successfully')
                 except:
                     messages.error(request, f'Error Occured')
             else:
                 messages.error(request, f'Details are Invalid')
-        elif 'form2' in request.POST and request.FILES['xls_file']:
+        elif 'form2' in request.POST and request.FILES['file']:
             form2 = AddVehicleFileForm(request.POST, request.FILES)
             if form2.is_valid():
-                vehicle_data = form2.save()
-                print(request.FILES['xls_file'].name)
-                path = os.path.join(settings.BASE_DIR, 'media') + '/datasheets/' + request.FILES['xls_file'].name
-                wb = openpyxl.load_workbook(path, read_only=True)
-
-                # getting a particular sheet by name out of many sheets
-                worksheet = wb.active
-                print(worksheet)
-
-                excel_data = list()
-                # iterating over the rows and
-                # getting value from each cell in row
-                for row in worksheet.iter_rows():
-                    row_data = list()
-                    for cell in row:
-                        row_data.append(str(cell.value))
-                    excel_data.append(row_data)
-                print(excel_data)
+                if str(request.FILES['file'].name).find('.csv') != -1:
+                    try:
+                        vehicle_data = form2.save()
+                        file_name = request.FILES['file'].name
+                        path = os.path.join(settings.BASE_DIR, 'media') + '/datasheets/' + file_name
+                        fields = []
+                        rows = []
+                        with open(path, 'r') as csvfile:
+                            # creating a csv reader object
+                            csvreader = _csv.reader(csvfile)
+                            for row in csvreader:
+                                rows.append(row)
+                            for field in rows.pop(0):
+                                fields.append(field)
+                        data_list = []
+                        for row in rows:
+                            data = {}
+                            for (key, value) in zip(fields, row):
+                                data.update({key.strip(): value.strip()})
+                            data_list.append(data)
+                        # print(data_list)
+                        user = request.session['user']
+                        for vehicle in data_list:
+                            database.child('manufacturer').child(str(user['userId'])).child('vehicles').child(
+                                vehicle.get('chassis_no')).set(vehicle)
+                        os.remove(path)
+                        # print('hello')
+                        messages.success(request, f'Saved Successfully')
+                    except:
+                        messages.error(request, f'Error Occured')
+                else:
+                    messages.error(request, f'Datasheet is not in proper format')
             else:
                 messages.error('Invalid File')
     context = {'app': app, 'title': 'Add Vehicle', 'form1': form1, 'form2': form2}
     context.update(user_details(request, context))
     return render(request, 'manufacturer/add.html', context)
+
+
+class DisplayManufactured(TemplateView):
+    template_name = 'manufacturer/manufactured_display.html'
+
+    def get_context_data(self, **kwargs):
+        user = self.request.session['user']
+        vehicles = database.child('manufacturer').child(str(user['userId'])).child('vehicles').get()
+        context = []
+        if vehicles.val() is not None:
+            for vehicle in vehicles.each():
+                context.append(vehicle.val())
+        return {'vehicles': context}
+
+
+class DisplayVehicleDetail(TemplateView):
+    template_name = 'manufacturer/vehicle_display.html'
+
+    def get_context_data(self, **kwargs):
+        user = self.request.session['user']
+        vehicles = database.child('manufacturer').child(str(user['userId'])).child('vehicles').get()
+        if vehicles.val() is not None:
+            for vehicle in vehicles.each():
+                if str(self.request.path).endswith(vehicle.key()):
+                    return {'vehicle': vehicle.val()}

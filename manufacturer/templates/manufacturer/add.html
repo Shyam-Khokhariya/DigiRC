@@ -6,6 +6,13 @@
 {% endblock style %}
 {% block content %}
 <div class="add-vehicle-form">
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
     <div class="row">
         <legend class="border-bottom mb-4 pb-2 text-center">Add Vehicle</legend>
         <div class="col-md-6">
@@ -20,7 +27,10 @@
                 </div>
             </form>
         </div>
-        <div class="col-md-6 ml-auto">
+        <div class="col-md-2">
+            <p class="text-center" style="font-size: 24px">Or</p>
+        </div>
+        <div class="col-md-4 ml-auto">
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <fieldset class="form-group">

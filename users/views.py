@@ -42,6 +42,7 @@ def manufacturer(request):
                     request.session['uid'] = str(session_id)
                     request.session['logged_status'] = True
                     request.session['user'] = user
+                    request.session['usertype'] = 'manufacturer'
                     return redirect('manu-dashboard')
                 except:
                     messages.error(request, f'Invalid Credentials')
@@ -64,6 +65,7 @@ def dealer(request):
                     request.session['uid'] = str(session_id)
                     request.session['logged_status'] = True
                     request.session['user'] = user
+                    request.session['usertype'] = 'dealer'
                     return redirect('home')
                 except:
                     messages.error(request, f'Invalid Credentials')
@@ -86,6 +88,7 @@ def buyer(request):
                     request.session['uid'] = str(session_id)
                     request.session['logged_status'] = True
                     request.session['user'] = user
+                    request.session['usertype'] = 'customer'
                     return redirect('home')
                 except:
                     messages.error(request, f'Invalid Credentials')
@@ -108,6 +111,7 @@ def insurance(request):
                     request.session['uid'] = str(session_id)
                     request.session['logged_status'] = True
                     request.session['user'] = user
+                    request.session['usertype'] = 'insurance'
                     return redirect('home')
                 except:
                     messages.error(request, f'Invalid Credentials')
@@ -130,6 +134,7 @@ def rto(request):
                     request.session['uid'] = str(session_id)
                     request.session['logged_status'] = True
                     request.session['user'] = user
+                    request.session['usertype'] = 'rto'
                     return redirect('home')
                 except:
                     messages.error(request, f'Invalid Credentials')
