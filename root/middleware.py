@@ -20,12 +20,23 @@ class LoginRequiredMiddleware:
     def process_view(request, view_func, view_args, view_kwargs):
         if 'admin' in request.path:
             return redirect('home')
-        elif 'logout' in request.path:
-            if 'logged_status' not in request.path:
-                redirect('home')
-        elif 'logged_status' in request.session:
-            if str(request.session['usertype']) == 'manufacturer' and 'dashboard' not in request.path:
-                return redirect('manu-dashboard')
-        else:
-            if 'dashboard' in request.path:
+        elif 'dashboard' in request.path:
+            if 'logged_status' in request.session:
+                if str(request.session['usertype']) == 'manufacturer' and 'dashboard' not in request.path:
+                    return redirect('manu-dashboard')
+                elif str(request.session['usertype']) == 'rto' and 'dashboard' not in request.path:
+                    return redirect('rto-dashboard')
+                else:
+                    if str(request.session['usertype']) not in request.path:
+                        return redirect('home')
+            else:
                 return redirect('home')
+        elif 'logout' in request.path:
+            if 'logged_status' not in request.session:
+                return redirect('home')
+        elif '/' in request.path:
+            if 'logged_status' in request.session:
+                if str(request.session['usertype']) == 'manufacturer':
+                    return redirect('manu-dashboard')
+                elif str(request.session['usertype']) == 'rto':
+                    return redirect('rto-dashboard')

@@ -24,4 +24,5 @@ urlpatterns = [
     path('dashboard/display/manufactured/', views.DisplayManufactured.as_view(), name='manu-display-manufactured'),
     path('dashboard/display/manufactured/<str:pk>', views.DisplayVehicleDetail.as_view(),
          name='manu-display-vehicle-detail'),
+    path('register/', users_views.register, name='manu-signup'),
 ]

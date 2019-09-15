@@ -3491,8 +3491,6 @@ input[type="button"].btn-block {
     z-index: 1000;
     display: none;
     float: left;
-    min-width: 10rem;
-    padding: 0.5rem 0;
     margin: 0.125rem 0 0;
     font-size: 1rem;
     color: #212529;
@@ -4670,7 +4668,7 @@ input[type="button"].btn-block {
     -ms-flex-pack: justify;
     justify-content: space-between;
 }
-
+/*
 .navbar-brand {
     display: inline-block;
     padding-top: 0.3125rem;
@@ -4680,7 +4678,7 @@ input[type="button"].btn-block {
     line-height: inherit;
     white-space: nowrap;
 }
-
+*/
 .navbar-brand:hover,
 .navbar-brand:focus {
     text-decoration: none;
@@ -4873,10 +4871,6 @@ input[type="button"].btn-block {
     .navbar-expand-lg .navbar-nav .dropdown-menu {
         position: absolute;
     }
-    .navbar-expand-lg .navbar-nav .nav-link {
-        padding-right: 0.5rem;
-        padding-left: 0.5rem;
-    }
     .navbar-expand-lg>.container,
     .navbar-expand-lg>.container-fluid {
         -ms-flex-wrap: nowrap;
@@ -4996,10 +4990,6 @@ input[type="button"].btn-block {
     color: rgba(0, 0, 0, 0.9);
 }
 
-.navbar-brand{
-    color: #000000;
-}
-
 .navbar-light,
 .navbar-light .navbar-brand:focus {
     color: rgba(0, 0, 0, 0.9);
@@ -5054,10 +5044,6 @@ input[type="button"].btn-block {
 .navbar-dark,
 .navbar-dark{
     color: #fff;
-}
-
-.navbar-brand:hover{
-    color: #000000;
 }
 
 .navbar-dark .navbar-nav .nav-link {
@@ -5804,7 +5790,8 @@ a.badge-dark.focus {
     color: #533f03;
 }
 
-.alert-danger {
+.alert-danger,
+.alert-error {
     color: #721c24;
     background-color: #f8d7da;
     border-color: #f5c6cb;
@@ -10919,7 +10906,7 @@ html {
 body {
     font-family: "Poppins", Arial, sans-serif;
     font-size: 15px;
-    line-height: 1.8;
+    line-height: 1.5;
     font-weight: 400;
     overflow-x: hidden;
 }
@@ -11172,12 +11159,6 @@ h5,
 .scrolled>.container>.navbar-brand,
 .scrolled>.container>#ftco-nav>.navbar-nav>.nav-link>a{
     color: #ffffff;
-}
-
-.navbar-brand {
-    font-weight: 700;
-    font-size: 20px;
-    text-transform: uppercase;
 }
 
 .hero-wrap {
@@ -13917,6 +13898,11 @@ textarea.form-control {
     width: 75%;
 }
 
+.rto-requests{
+    padding: 30px 50px;
+    margin: 100px 0px 30px 270px;
+}
+
 .add-vehicle-form{
     background-color: #ffffff;
     border: 1px solid #777777;
@@ -13925,4 +13911,31 @@ textarea.form-control {
 #message{
     color: red;
     font-size: 12px;
+}
+
+.logout-section {
+    border: 1px solid #eeeeee;
+    padding: 20px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.content-logout{
+    margin-top: 100px;
+}
+
+.home-title{
+    font-weight: 600;
+    font-size: 24px;
+    color: Black;
+}
+
+.home-title:hover{
+    color: Black;
+}
+
+.register-form{
+    margin: 100px auto 30px auto;
+    border: 1px solid #efefef;
+    padding: 50px;
 }

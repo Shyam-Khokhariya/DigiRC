@@ -1,13 +1,10 @@
-from django.views.generic import TemplateView, DetailView
+from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
 from django.conf import settings
 from .forms import AddVehicleForm, AddVehicleFileForm
 from django.contrib import messages
-from django.views import View
 import os
-import openpyxl
 import _csv
-import pandas as pd
 
 app = settings.APP_NAME
 
@@ -16,10 +13,14 @@ auth = settings.FIREBASE.auth()
 database = settings.FIREBASE.database()
 
 
+def get_user(request):
+    return request.session['user']
+
+
 def user_details(request, context):
     if 'logged_status' in request.session:
-        user = request.session['user']
-        user_info = database.child('users').child(str(user['userId'])).child('details').get()
+        user = get_user(request)
+        user_info = database.child('manufacturer').child(str(user['userId'])).child('profile').get()
         if user_info.val() is not None:
             for info in user_info.each():
                 context.update({info.key(): info.val()})
@@ -31,7 +32,12 @@ class Dashboard(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = {'app': app, 'title': 'Dashboard'}
-        return context.update(user_details(self.request, context))
+        context.update(user_details(self.request, context))
+        return context
+
+
+def get_file_name(request, file_name):
+    return request.FILES[file_name].name
 
 
 def add_vehicle(request):
@@ -46,7 +52,7 @@ def add_vehicle(request):
                     vehicle = vehicle.__dict__
                     for key in ['_state', 'id']:
                         vehicle.pop(key)
-                    user = request.session['user']
+                    user = get_user(request)
                     database.child('manufacturer').child(str(user['userId'])).child('vehicles').child(
                         vehicle.get('chassis_no')).set(vehicle)
                     form1 = AddVehicleForm()
@@ -58,33 +64,30 @@ def add_vehicle(request):
         elif 'form2' in request.POST and request.FILES['file']:
             form2 = AddVehicleFileForm(request.POST, request.FILES)
             if form2.is_valid():
-                if str(request.FILES['file'].name).find('.csv') != -1:
+                if str(get_file_name(request, 'file')).find('.csv') != -1:
                     try:
-                        vehicle_data = form2.save()
-                        file_name = request.FILES['file'].name
+                        form2.save()
+                        file_name = get_file_name(request, 'file')
                         path = os.path.join(settings.BASE_DIR, 'media') + '/datasheets/' + file_name
-                        fields = []
-                        rows = []
+                        fields = list()
+                        rows = list()
                         with open(path, 'r') as csvfile:
-                            # creating a csv reader object
                             csvreader = _csv.reader(csvfile)
                             for row in csvreader:
                                 rows.append(row)
                             for field in rows.pop(0):
                                 fields.append(field)
-                        data_list = []
+                        data_list = list()
                         for row in rows:
-                            data = {}
+                            data = dict()
                             for (key, value) in zip(fields, row):
                                 data.update({key.strip(): value.strip()})
                             data_list.append(data)
-                        # print(data_list)
-                        user = request.session['user']
+                        user = get_user(request)
                         for vehicle in data_list:
                             database.child('manufacturer').child(str(user['userId'])).child('vehicles').child(
                                 vehicle.get('chassis_no')).set(vehicle)
                         os.remove(path)
-                        # print('hello')
                         messages.success(request, f'Saved Successfully')
                     except:
                         messages.error(request, f'Error Occured')
@@ -101,9 +104,9 @@ class DisplayManufactured(TemplateView):
     template_name = 'manufacturer/manufactured_display.html'
 
     def get_context_data(self, **kwargs):
-        user = self.request.session['user']
+        user = get_user(self.request)
         vehicles = database.child('manufacturer').child(str(user['userId'])).child('vehicles').get()
-        context = []
+        context = list()
         if vehicles.val() is not None:
             for vehicle in vehicles.each():
                 context.append(vehicle.val())

@@ -44,6 +44,13 @@
                             <!-- This is important for security purpose -->
                             {% csrf_token %}
                             <fieldset class="form-group">
+                                {% if messages %}
+                                    {% for message in messages %}
+                                    <div class="alert alert-{{ message.tags }}">
+                                        {{ message }}
+                                    </div>
+                                    {% endfor %}
+                                {% endif %}
                                 <!-- Login Form -->
                                 <legend class="border-bottom mb-4 pb-2 text-center">{{ usertype }}</legend>
                                 <label for="email" class="required-field control-label">Email</label>

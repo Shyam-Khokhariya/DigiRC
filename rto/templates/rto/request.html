@@ -1,0 +1,47 @@
+{% extends 'rto/base.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'root/css/style.css' %}">
+{% endblock style %}
+{% block content %}
+<div class="rto-requests">
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+    {% if requests|length > 0 %}
+    <table class="table-striped text-center" width="100%">
+        <tr>
+            <th>Sr. No</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th>User Type</th>
+            <th>License</th>
+            <th>Accept/Reject</th>
+        </tr>
+
+        {% for i in requests %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.name }}</td>
+            <td>{{ i.email }}</td>
+            <td>{{ i.contact }}</td>
+            <td>{{ i.usertype }}</td>
+            <td><a href="{{ i.industry_license }}"><img src="{{ i.industry_license }}"
+                                                        style="width: 80px; height: 100px"/></a></td>
+            <td>
+                <a class="btn btn-outline-success" href="{% url 'rto-request-accept' i.email %}">Accept</a>
+                <a class="btn btn-outline-danger" href="{% url 'rto-request-reject' i.email %}">Reject</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <h2> No Requests </h2>
+    {% endif %}
+</div>
+{% endblock content %}

@@ -4,7 +4,7 @@
 {% block content %}
     <div class="content-logout">
         <div class="logout-logo text-center" style="width: 100%">
-            <a href="{% url 'home' %}" style="padding-right: 0px; color: #111111;font-weight: 400">
+            <a href="{% url 'home' %}" style="padding-right: 0px; color: #111111;font-weight: 400; font-size: 24px;">
                 {{ app }}
             </a>
         </div>
@@ -13,6 +13,8 @@
             <p class="text-center sign-out">
                 You have been logged out
             </p>
+            <a href="{% url log_url %}" style="font-weight: 600; font-size: 16px;
+         padding: 10px; color: rgba(27,27,27,.9);" class="btn btn-signout btn-outline-info">Login Again</a>
         </div>
     </div>
 {% endblock content %}s
