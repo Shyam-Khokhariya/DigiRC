@@ -1912,11 +1912,6 @@ Sidebar Page Navigations
     border: 0;
 }
 
-.dropdown-item:hover {
-    color: #5969ff;
-    background: #efeff6;
-}
-
 .page-section {}
 
 .dropdown-item.active,

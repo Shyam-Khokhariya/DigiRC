@@ -106,11 +106,14 @@ class DisplayManufactured(TemplateView):
     def get_context_data(self, **kwargs):
         user = get_user(self.request)
         vehicles = database.child('manufacturer').child(str(user['userId'])).child('vehicles').get()
-        context = list()
+        vehicles_list = list()
         if vehicles.val() is not None:
             for vehicle in vehicles.each():
-                context.append(vehicle.val())
-        return {'vehicles': context}
+                vehicles_list.append(vehicle.val())
+        context = {'app': app, 'title': 'Display Vehicles'}
+        context.update(user_details(self.request, context))
+        context.update({'vehicles': vehicles_list})
+        return context
 
 
 class DisplayVehicleDetail(TemplateView):
@@ -119,7 +122,11 @@ class DisplayVehicleDetail(TemplateView):
     def get_context_data(self, **kwargs):
         user = self.request.session['user']
         vehicles = database.child('manufacturer').child(str(user['userId'])).child('vehicles').get()
+        context = {'app': app, 'title': 'Display Vehicles'}
+        context.update(user_details(self.request, context))
         if vehicles.val() is not None:
             for vehicle in vehicles.each():
                 if str(self.request.path).endswith(vehicle.key()):
-                    return {'vehicle': vehicle.val()}
+                    context.update({'vehicle': vehicle.val()})
+                    break
+        return context

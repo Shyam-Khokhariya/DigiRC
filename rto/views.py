@@ -86,7 +86,13 @@ class AcceptRequest(TemplateView):
         send_mail(subject, message, from_email, recipient_list, auth_user='digirc2019@gmail.com', auth_password='digirc!@#$19', fail_silently=False)
         user = auth.create_user_with_email_and_password(email, password)
         uid = user['localId']
-        database.child('users').child(str(context.get('usertype'))).set({email.replace('.', ','): str(uid)})
+        users = database.child('users').child(str(context.get('usertype'))).get()
+        users_list = dict()
+        if users.val() is not None:
+            for i in users.each():
+                users_list.update({i.key(): i.val()})
+        users_list.update({email.replace('.', ','): str(uid)})
+        database.child('users').child(str(context.get('usertype'))).set(users_list)
         database.child(str(context.get('usertype'))).child(str(uid)).child('profile').set(context)
         database.child('requests').child('registration').child(email.replace('.', ',')).remove()
         messages.success(request, f'Account Credentials are sent to email')

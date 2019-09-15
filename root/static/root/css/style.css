@@ -3669,14 +3669,14 @@ input[type="button"].btn-block {
     background-color: transparent;
     border: 0;
 }
-
+/*
 .dropdown-item:hover,
 .dropdown-item:focus {
     color: #16181b;
     text-decoration: none;
     background-color: #f8f9fa;
 }
-
+*/
 .dropdown-item.active,
 .dropdown-item:active {
     color: #fff;
@@ -13938,4 +13938,9 @@ textarea.form-control {
     margin: 100px auto 30px auto;
     border: 1px solid #efefef;
     padding: 50px;
+}
+
+.logout-button{
+    background-color: #ffffff;
+    margin-right: 30px;
 }

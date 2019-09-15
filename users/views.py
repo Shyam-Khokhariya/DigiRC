@@ -30,7 +30,7 @@ def user_details(self, context):
     return context
 
 
-def new_user(users, email):
+def logged_user(users, email):
     if users.val() is not None:
         for user in users.each():
             if user.key().replace(',', '.') == email:
@@ -43,7 +43,7 @@ def manufacturer(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         users = database.child('users').child('manufacturer').get()
-        if new_user(users, email):
+        if logged_user(users, email):
             try:
                 user = auth.sign_in_with_email_and_password(email, password)
                 user = auth.refresh(user['refreshToken'])
@@ -66,7 +66,7 @@ def dealer(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         users = database.child('users').child('dealer').get()
-        if new_user(users, email):
+        if logged_user(users, email):
             try:
                 user = auth.sign_in_with_email_and_password(email, password)
                 user = auth.refresh(user['refreshToken'])
@@ -89,7 +89,7 @@ def buyer(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         users = database.child('users').child('customer').get()
-        if new_user(users, email):
+        if logged_user(users, email):
             try:
                 user = auth.sign_in_with_email_and_password(email, password)
                 user = auth.refresh(user['refreshToken'])
@@ -112,7 +112,7 @@ def insurance(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         users = database.child('users').child('insurance').get()
-        if new_user(users, email):
+        if logged_user(users, email):
             try:
                 user = auth.sign_in_with_email_and_password(email, password)
                 user = auth.refresh(user['refreshToken'])
@@ -135,7 +135,7 @@ def rto(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         users = database.child('users').child('rto').get()
-        if new_user(users, email):
+        if logged_user(users, email):
             try:
                 user = auth.sign_in_with_email_and_password(email, password)
                 user = auth.refresh(user['refreshToken'])
@@ -153,18 +153,21 @@ def rto(request):
                   context={'app': app, 'title': 'Login', 'usertype': 'RTO Officer'})
 
 
+def check_user_exists(users, email):
+    for user_type in users.each():
+        for user_email in user_type.val():
+            if user_email.replace(',', '.') == email:
+                return True
+    return False
+
+
 def register(request):
     if request.method == 'POST':
         form = RegisterManufacturerForm(request.POST, request.FILES)
         if form.is_valid():
             email = request.POST.get('email')
             users = database.child('users').get()
-            flag = True
-            for user_type in users.each():
-                for user_email in user_type.val():
-                    if user_email.replace(',', '.') == email:
-                        flag = False
-            if flag:
+            if not check_user_exists(users, email):
                 file_name = request.FILES['industry_license']
                 if str(file_name).find('.jpg') == -1 and str(file_name).find('.png') == -1:
                     messages.error(request, f'License Must be in JPG/PNG Format')
@@ -218,7 +221,8 @@ def password_reset(request):
         try:
             auth.send_password_reset_email(email)
             messages.success(request,
-                             f'Check your email for a link to reset your password. If it doesn’t appear within a few minutes, check your spam folder.')
+                             f'Check your email for a link to reset your password. If it doesn’t appear within a few '
+                             f'minutes, check your spam folder.')
         except:
             messages.error(request, f'Email address is not registered')
     return render(request, 'users/forgot_password.html', context={'app': app, 'title': 'Password Reset'})
