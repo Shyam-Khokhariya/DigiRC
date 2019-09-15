@@ -15,10 +15,8 @@ Including another URLconf
 """
 from django.urls import path, include
 from . import views
-from users import views as users_views
 
 urlpatterns = [
-    path('', users_views.rto, name='rto-login'),
     path('dashboard/', views.Dashboard.as_view(), name='rto-dashboard'),
     path('dashboard/Requests', views.RegisterationRequests.as_view(), name='rto-registration-requests'),
     path('dashboard/Requests/accept/<str:pk>', views.AcceptRequest.as_view(), name='rto-request-accept'),

@@ -1,5 +1,6 @@
 {% extends 'root/base.html' %}
 {% load static %}
+{% load tags_extra %}
 {% load crispy_forms_tags %}
 {% block style %}
 <style>
@@ -52,7 +53,7 @@
                                     {% endfor %}
                                 {% endif %}
                                 <!-- Login Form -->
-                                <legend class="border-bottom mb-4 pb-2 text-center">{{ usertype }}</legend>
+                                <legend class="border-bottom mb-4 pb-2 text-center">{{ usertype|upper_case }}</legend>
                                 <label for="email" class="required-field control-label">Email</label>
                                 <input type="email" name="email" class="form-control" required="required"
                                        title="Enter Email ID">

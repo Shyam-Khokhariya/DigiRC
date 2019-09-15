@@ -69,7 +69,7 @@ F.logout-section {
 }
 
 .login-form,
-.forgot-password-heading{
+.forgot-password-app-name{
     margin-top: 100px;
 }
 
@@ -663,4 +663,13 @@ a.article-title:hover {
     font-size: 24px;
     font-weight: 300;
     letter-spacing: -.5px;
+}
+.home-title{
+    font-weight: 600;
+    font-size: 24px;
+    color: Black;
+}
+
+.home-title:hover{
+    color: Black;
 }

@@ -50,11 +50,11 @@
                         {% if 'manufacturer' in request.path %}
                         <li class="nav-item nav-link"><a href="{% url 'manu-signup' %}">Apply for Registration</a></li>
                         {% else %}
-                        <li class="nav-item nav-link"><a href="{% url 'manu-login' %}">Manufacturer</a></li>
-                        <li class="nav-item nav-link"><a href="{% url 'dealer-login' %}">Dealer</a></li>
-                        <li class="nav-item nav-link"><a href="{% url 'buyer-login' %}">Buyer</a></li>
-                        <li class="nav-item nav-link"><a href="{% url 'insurance-login' %}">Insurance</a></li>
-                        <li class="nav-item nav-link"><a href="{% url 'rto-login' %}">RTO</a></li>
+                        <li class="nav-item nav-link"><a href="{% url 'login' usertype='manufacturer' %}">Manufacturer</a></li>
+                        <li class="nav-item nav-link"><a href="{% url 'login' usertype='dealer'%}">Dealer</a></li>
+                        <li class="nav-item nav-link"><a href="{% url 'login' usertype='buyer'%}">Buyer</a></li>
+                        <li class="nav-item nav-link"><a href="{% url 'login' usertype='insurance'%}">Insurance</a></li>
+                        <li class="nav-item nav-link"><a href="{% url 'login' usertype='rto'%}">RTO</a></li>
                         {% endif %}
                         <li class="nav-item nav-link"><a href="{% url 'contact' %}">Contact</a></li>
                     </ul>

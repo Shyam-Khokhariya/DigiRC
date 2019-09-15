@@ -22,6 +22,7 @@ urlpatterns = [
     path('buyer/', include('buyer.urls')),
     path('rto/', include('rto.urls')),
     path('insurance/', include('insurance.urls')),
+    path('login/<usertype>', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
     path('forgot-password/', views.password_reset, name='forgot-password'),
 ]

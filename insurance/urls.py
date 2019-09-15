@@ -18,6 +18,4 @@ from . import views
 from users import views as users_views
 
 urlpatterns = [
-    path('', users_views.insurance, name='insurance-login'),
-    # path('dashboard/', views.Dashboard.as_view(), name='insurance-dashboard'),
 ]

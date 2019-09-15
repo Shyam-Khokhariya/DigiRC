@@ -38,27 +38,45 @@ def logged_user(users, email):
     return False
 
 
+def get_logged_user_list(usertype):
+    return database.child('users').child(usertype).get()
+
+
+def process_login(request, usertype):
+    email = request.POST.get('email')
+    password = request.POST.get('password')
+    users = get_logged_user_list(usertype)
+    if logged_user(users, email):
+        try:
+            user = auth.sign_in_with_email_and_password(email, password)
+            user = auth.refresh(user['refreshToken'])
+            request.session['logged_status'] = True
+            request.session['user'] = user
+            request.session['usertype'] = usertype
+            return True
+        except:
+            messages.error(request, f'Invalid Credentials')
+            return False
+    else:
+        messages.error(request, f'Invalid Email or Password')
+        return False
+
+
 def manufacturer(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        users = database.child('users').child('manufacturer').get()
-        if logged_user(users, email):
-            try:
-                user = auth.sign_in_with_email_and_password(email, password)
-                user = auth.refresh(user['refreshToken'])
-                session_id = user['idToken']
-                request.session['uid'] = str(session_id)
-                request.session['logged_status'] = True
-                request.session['user'] = user
-                request.session['usertype'] = 'manufacturer'
-                return redirect('manu-dashboard')
-            except:
-                messages.error(request, f'Invalid Credentials')
-        else:
-            messages.error(request, f'Invalid Email or Password')
+        if process_login(request, 'manufacturer'):
+            return redirect('manu-dashboard')
     return render(request, 'users/login.html',
                   context={'app': app, 'title': 'Login', 'usertype': 'Manufacturer'})
+
+
+def login(request, usertype):
+    if request.method == 'POST':
+        if process_login(request, usertype):
+            path = usertype + "-dashboard"
+            return redirect(path)
+    return render(request, 'users/login.html',
+                  context={'app': app, 'title': 'Login', 'usertype': usertype})
 
 
 def dealer(request):
@@ -200,17 +218,7 @@ def register(request):
 
 
 def logout(request):
-    context = {'app': app, 'title': 'Logout'}
-    if str(request.session['usertype']) == 'manufacturer':
-        context.update({'log_url': 'manu-login'})
-    elif str(request.session['usertype']) == 'dealer':
-        context.update({'log_url': 'dealer-login'})
-    elif str(request.session['usertype']) == 'customer':
-        context.update({'log_url': 'buyer-login'})
-    elif str(request.session['usertype']) == 'insurance':
-        context.update({'log_url': 'insurance-login'})
-    elif str(request.session['usertype']) == 'rto':
-        context.update({'log_url': 'rto-login'})
+    context = {'app': app, 'title': 'Logout', 'usertype': str(request.session['usertype'])}
     django_auth.logout(request)
     return render(request, 'users/logout.html', context)
 
