@@ -1,6 +1,21 @@
 {% extends 'manufacturer/base.html' %}
 {% load static %}
 {% load tags_extra %}
+{% block script %}
+<script type="text/javascript">
+    function search(vehicles){
+        value = $('#search-bar').val()
+        var x = document.getElementsByClassName("vehicle");
+        for (var i=0;i<x.length;i++){
+            if(x[i].id.indexOf(value)==-1){
+                $("#" + x[i].id).hide();
+            }else{
+                $("#" + x[i].id).show();
+            }
+        }
+    }
+</script>
+{% endblock script %}
 {% block style %}
 <link rel="stylesheet" href="{% static 'root/css/style.css' %}">
 {% endblock style %}
@@ -19,7 +34,7 @@
         </tr>
 
         {% for vehicle in vehicles %}
-        <tr>
+        <tr class="vehicle" id="{{ vehicle.chassis_no }}">
             <td>{{ forloop.counter }}</td>
             <td><a href="{% url 'manu-display-vehicle-detail' vehicle.chassis_no %}">{{ vehicle.chassis_no }}</a></td>
             <td>{{ vehicle.model }}</td>

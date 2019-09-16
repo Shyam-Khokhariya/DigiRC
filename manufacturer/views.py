@@ -40,6 +40,15 @@ def get_file_name(request, file_name):
     return request.FILES[file_name].name
 
 
+def chassis_added(vehicle, user):
+    vehicle_data = database.child('manufacturer').child(str(user['userId'])).child('vehicles').child(
+        vehicle.get('chassis_no')).get()
+    if vehicle_data.val() is not None:
+        return True
+    else:
+        return False
+
+
 def add_vehicle(request):
     form1 = AddVehicleForm()
     form2 = AddVehicleFileForm()
@@ -53,10 +62,13 @@ def add_vehicle(request):
                     for key in ['_state', 'id']:
                         vehicle.pop(key)
                     user = get_user(request)
-                    database.child('manufacturer').child(str(user['userId'])).child('vehicles').child(
-                        vehicle.get('chassis_no')).set(vehicle)
-                    form1 = AddVehicleForm()
-                    messages.success(request, f'Saved Successfully')
+                    if chassis_added(vehicle, user):
+                        messages.error(request, f'Chassis No Already Added')
+                    else:
+                        database.child('manufacturer').child(str(user['userId'])).child('vehicles').child(
+                            vehicle.get('chassis_no')).set(vehicle)
+                        form1 = AddVehicleForm()
+                        messages.success(request, f'Saved Successfully')
                 except:
                     messages.error(request, f'Error Occured')
             else:

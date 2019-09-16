@@ -62,13 +62,13 @@ def process_login(request, usertype):
         return False
 
 
-def manufacturer(request):
-    if request.method == 'POST':
-        if process_login(request, 'manufacturer'):
-            return redirect('manu-dashboard')
-    return render(request, 'users/login.html',
-                  context={'app': app, 'title': 'Login', 'usertype': 'Manufacturer'})
-
+# def manufacturer(request):
+#     if request.method == 'POST':
+#         if process_login(request, 'manufacturer'):
+#             return redirect('manu-dashboard')
+#     return render(request, 'users/login.html',
+#                   context={'app': app, 'title': 'Login', 'usertype': 'Manufacturer'})
+#
 
 def login(request, usertype):
     if request.method == 'POST':
@@ -79,96 +79,96 @@ def login(request, usertype):
                   context={'app': app, 'title': 'Login', 'usertype': usertype})
 
 
-def dealer(request):
-    if request.method == 'POST':
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        users = database.child('users').child('dealer').get()
-        if logged_user(users, email):
-            try:
-                user = auth.sign_in_with_email_and_password(email, password)
-                user = auth.refresh(user['refreshToken'])
-                session_id = user['idToken']
-                request.session['uid'] = str(session_id)
-                request.session['logged_status'] = True
-                request.session['user'] = user
-                request.session['usertype'] = 'dealer'
-                return redirect('home')
-            except:
-                messages.error(request, f'Invalid Credentials')
-        else:
-            messages.error(request, f'Invalid Email or Password')
-    return render(request, 'users/login.html',
-                  context={'app': app, 'title': 'Login', 'usertype': 'Dealer'})
-
-
-def buyer(request):
-    if request.method == 'POST':
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        users = database.child('users').child('customer').get()
-        if logged_user(users, email):
-            try:
-                user = auth.sign_in_with_email_and_password(email, password)
-                user = auth.refresh(user['refreshToken'])
-                session_id = user['idToken']
-                request.session['uid'] = str(session_id)
-                request.session['logged_status'] = True
-                request.session['user'] = user
-                request.session['usertype'] = 'customer'
-                return redirect('home')
-            except:
-                messages.error(request, f'Invalid Credentials')
-        else:
-            messages.error(request, f'Invalid Email or Password')
-    return render(request, 'users/login.html',
-                  context={'app': app, 'title': 'Login', 'usertype': 'Buyer'})
-
-
-def insurance(request):
-    if request.method == 'POST':
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        users = database.child('users').child('insurance').get()
-        if logged_user(users, email):
-            try:
-                user = auth.sign_in_with_email_and_password(email, password)
-                user = auth.refresh(user['refreshToken'])
-                session_id = user['idToken']
-                request.session['uid'] = str(session_id)
-                request.session['logged_status'] = True
-                request.session['user'] = user
-                request.session['usertype'] = 'insurance'
-                return redirect('home')
-            except:
-                messages.error(request, f'Invalid Credentials')
-        else:
-            messages.error(request, f'Invalid Email or Password')
-    return render(request, 'users/login.html',
-                  context={'app': app, 'title': 'Login', 'usertype': 'Insurance Agencies'})
-
-
-def rto(request):
-    if request.method == 'POST':
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        users = database.child('users').child('rto').get()
-        if logged_user(users, email):
-            try:
-                user = auth.sign_in_with_email_and_password(email, password)
-                user = auth.refresh(user['refreshToken'])
-                session_id = user['idToken']
-                request.session['uid'] = str(session_id)
-                request.session['logged_status'] = True
-                request.session['user'] = user
-                request.session['usertype'] = 'rto'
-                return redirect('rto-dashboard')
-            except:
-                messages.error(request, f'Invalid Credentials')
-        else:
-            messages.error(request, f'Invalid Email or Password')
-    return render(request, 'users/login.html',
-                  context={'app': app, 'title': 'Login', 'usertype': 'RTO Officer'})
+# def dealer(request):
+#     if request.method == 'POST':
+#         email = request.POST.get('email')
+#         password = request.POST.get('password')
+#         users = database.child('users').child('dealer').get()
+#         if logged_user(users, email):
+#             try:
+#                 user = auth.sign_in_with_email_and_password(email, password)
+#                 user = auth.refresh(user['refreshToken'])
+#                 session_id = user['idToken']
+#                 request.session['uid'] = str(session_id)
+#                 request.session['logged_status'] = True
+#                 request.session['user'] = user
+#                 request.session['usertype'] = 'dealer'
+#                 return redirect('home')
+#             except:
+#                 messages.error(request, f'Invalid Credentials')
+#         else:
+#             messages.error(request, f'Invalid Email or Password')
+#     return render(request, 'users/login.html',
+#                   context={'app': app, 'title': 'Login', 'usertype': 'Dealer'})
+#
+#
+# def buyer(request):
+#     if request.method == 'POST':
+#         email = request.POST.get('email')
+#         password = request.POST.get('password')
+#         users = database.child('users').child('customer').get()
+#         if logged_user(users, email):
+#             try:
+#                 user = auth.sign_in_with_email_and_password(email, password)
+#                 user = auth.refresh(user['refreshToken'])
+#                 session_id = user['idToken']
+#                 request.session['uid'] = str(session_id)
+#                 request.session['logged_status'] = True
+#                 request.session['user'] = user
+#                 request.session['usertype'] = 'customer'
+#                 return redirect('home')
+#             except:
+#                 messages.error(request, f'Invalid Credentials')
+#         else:
+#             messages.error(request, f'Invalid Email or Password')
+#     return render(request, 'users/login.html',
+#                   context={'app': app, 'title': 'Login', 'usertype': 'Buyer'})
+#
+#
+# def insurance(request):
+#     if request.method == 'POST':
+#         email = request.POST.get('email')
+#         password = request.POST.get('password')
+#         users = database.child('users').child('insurance').get()
+#         if logged_user(users, email):
+#             try:
+#                 user = auth.sign_in_with_email_and_password(email, password)
+#                 user = auth.refresh(user['refreshToken'])
+#                 session_id = user['idToken']
+#                 request.session['uid'] = str(session_id)
+#                 request.session['logged_status'] = True
+#                 request.session['user'] = user
+#                 request.session['usertype'] = 'insurance'
+#                 return redirect('home')
+#             except:
+#                 messages.error(request, f'Invalid Credentials')
+#         else:
+#             messages.error(request, f'Invalid Email or Password')
+#     return render(request, 'users/login.html',
+#                   context={'app': app, 'title': 'Login', 'usertype': 'Insurance Agencies'})
+#
+#
+# def rto(request):
+#     if request.method == 'POST':
+#         email = request.POST.get('email')
+#         password = request.POST.get('password')
+#         users = database.child('users').child('rto').get()
+#         if logged_user(users, email):
+#             try:
+#                 user = auth.sign_in_with_email_and_password(email, password)
+#                 user = auth.refresh(user['refreshToken'])
+#                 session_id = user['idToken']
+#                 request.session['uid'] = str(session_id)
+#                 request.session['logged_status'] = True
+#                 request.session['user'] = user
+#                 request.session['usertype'] = 'rto'
+#                 return redirect('rto-dashboard')
+#             except:
+#                 messages.error(request, f'Invalid Credentials')
+#         else:
+#             messages.error(request, f'Invalid Email or Password')
+#     return render(request, 'users/login.html',
+#                   context={'app': app, 'title': 'Login', 'usertype': 'RTO Officer'})
 
 
 def check_user_exists(users, email):

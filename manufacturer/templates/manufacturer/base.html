@@ -18,6 +18,9 @@
     <link rel="stylesheet" href="{% static 'root/assets/vendor/charts/c3charts/c3.css' %}">
     <link rel="stylesheet" href="{% static 'root/assets/vendor/fonts/flag-icon-css/flag-icon.min.css' %}">
     <link rel="stylesheet" href="{% static 'root/css/style.css' %}">
+    {% block script %}
+    {% endblock %}
+
     {% block style %}
     {% endblock %}
 
@@ -32,8 +35,19 @@
             </button>
             <div class="collapse navbar-collapse " id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto navbar-right-top">
-                    <li class="nav-item dropdown nav-user">
-                        <a class="btn btn-outline-danger logout-button" href="{% url 'logout' %}"><i class="fas fa-power-off mr-2"></i>Logout</a>
+                    {% if 'display' in request.path %}
+                    <li class="nav-item">
+                        <div id="custom-search" class="top-search-bar">
+                            <input type="text" class="form-control" name="search" id="search-bar" placeholder="Search.." onkeyup="search({{ vehicles }})"/>
+<!--                            <input class="form-control" type="text" placeholder="Search..">-->
+                        </div>
+                    </li>
+                    {% endif %}
+
+                    <li class="nav-item">
+                        <div class="top-search-bar">
+                            <a class="btn btn-outline-danger" href="{% url 'logout' %}"><i class="fas fa-power-off mr-2"></i>Logout</a>
+                        </div>
                     </li>
                 </ul>
             </div>

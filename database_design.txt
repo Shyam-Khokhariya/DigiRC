@@ -50,9 +50,23 @@ db:{
 			profile:{
 			}
 			vehicles_insured:{
-				registeration_no:{
+				chassis_no:{
 				}
 			}
 		}
+	}
+	request:{
+	    registeration:{
+	        email_id:{
+	        }
+	    }
+	    vehicle_registration:{
+	        chassis_no:{
+	        }
+	    }
+	    insurance:{
+	        chassis_no:{
+	        }
+	    }
 	}
 }
