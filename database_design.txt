@@ -2,71 +2,147 @@ db:{
 	manufacturer:{
 		manufacturer_id:{
 			profile:{
-			}
-			vehicles:{
-				chassis_no:{
-				}
-			}
+			    name,
+			    email,
+			    contact,
+			    industry_license,
+			    usertype
+			},
 			dealer:{
 				dealer_id:{
-					profile:{
-					}
+				    chassis_no
 				}
 			}
 		}
-	}
+	},
 	dealer:{
 		dealer_id:{
-			profile:{
-			}
-			vehicles:{
-				chassis_no:{
-				}
-			}
+            profile:{
+                name,
+                email,
+                contact,
+                shop_license,
+                usertype
+            },
+            vehicles:{
+                chassis_no
+            }
 		}
-	}
+	},
 	rto:{
-		rto_id:{
-			profile:{
-			}
-			registered_vehicles:{
-				registration_no:{
-				}
-			}
+		rto_name:{
+		    officer_id:{
+                profile:{
+                    name,
+                    email,
+                    contact,
+                    officer_identity,
+                    usertype
+                },
+                registered_vehicles:{
+                    chassis_no:{
+                        registration_no,
+                        date_of_reg,
+                        reg_validity,
+                        owner_sr_no,
+                        ownership_transfer_date,
+                        buyer_id
+                    }
+                }
+            }
 		}
-	}
+	},
 	buyer:{
 		buyer_id:{
 			profile:{
+			    name,
+			    father_name,
+			    address,
+			    contact,
+			    email,
+			    photo,
+			    driving_license,
+			    aadhar_card
 			}
 			vehicles:{
 				registeration_no:{
+				    chassis_no,
+				    rto_name,
+				    officer_id
 				}
 			}
 		}
-	}
+	},
 	insurance_agency:{
-		insurance_agency_id:{
-			profile:{
-			}
-			vehicles_insured:{
-				chassis_no:{
-				}
-			}
+		insurance_agency_name:{
+		    insurance_provider_id:{
+                profile:{
+                    name,
+                    email,
+                    contact,
+                    photo,
+                    aadhar_card
+                }
+                vehicles_insured:{
+                    chassis_no
+                }
+            }
 		}
 	}
+    vehicles:{
+        chassis_no:{
+            chassis_no,
+            engine_no,
+            fuel_type,
+            maker,
+            model,
+            vehicle_class,
+            body_type,
+            vehicle_type,
+            manufacture_month,
+            manufacture_year,
+            number_of_cylinders,
+            horse_power,
+            cubic_capacity,
+            wheel_base,
+            seating_capacity,
+            unladen_weight,
+            color,
+            price
+        }
+    },
 	request:{
 	    registeration:{
-	        email_id:{
+	        manufacturer:{
+	            name,
+	            email,
+	            contact,
+	            industry_license
+	        },
+	        dealer:{
+	            name,
+	            email,
+	            contact,
+	            industry_license
+	        },
+	        buyer:{
+	            name,
+			    father_name,
+			    address,
+			    contact,
+			    email,
+			    photo,
+			    driving_license,
+			    aadhar_card
 	        }
-	    }
+	    },
 	    vehicle_registration:{
-	        chassis_no:{
-	        }
-	    }
+	        chassis_no
+	    },
 	    insurance:{
-	        chassis_no:{
-	        }
+	        chassis_no,
+	        buyer_id,
+	        dealer_id
 	    }
 	}
 }
