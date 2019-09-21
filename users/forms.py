@@ -1,5 +1,5 @@
 from django import forms
-from .models import Manufacturer
+from root.models import Manufacturer
 
 
 class RegisterManufacturerForm(forms.ModelForm):

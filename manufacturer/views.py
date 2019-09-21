@@ -1,10 +1,11 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from django.shortcuts import render, redirect
 from django.conf import settings
 from .forms import AddVehicleForm, AddVehicleFileForm
 from django.contrib import messages
 import os
 import _csv
+from django.core.paginator import Paginator
 
 app = settings.APP_NAME
 
@@ -17,7 +18,7 @@ def get_user(request):
     return request.session['user']
 
 
-def user_details(request, context):
+def get_user_details(request, context):
     if 'logged_status' in request.session:
         user = get_user(request)
         user_info = database.child('manufacturer').child(str(user['userId'])).child('profile').get()
@@ -32,7 +33,7 @@ class Dashboard(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = {'app': app, 'title': 'Dashboard'}
-        context.update(user_details(self.request, context))
+        context.update(get_user_details(self.request, context))
         return context
 
 
@@ -108,7 +109,7 @@ def add_vehicle(request):
             else:
                 messages.error('Invalid File')
     context = {'app': app, 'title': 'Add Vehicle', 'form1': form1, 'form2': form2}
-    context.update(user_details(request, context))
+    context.update(get_user_details(request, context))
     return render(request, 'manufacturer/add.html', context)
 
 
@@ -123,8 +124,12 @@ class DisplayManufactured(TemplateView):
             for vehicle in vehicles.each():
                 vehicles_list.append(vehicle.val())
         context = {'app': app, 'title': 'Display Vehicles'}
-        context.update(user_details(self.request, context))
-        context.update({'vehicles': vehicles_list})
+        context.update(get_user_details(self.request, context))
+        paginator = Paginator(vehicles_list, settings.VEHICLE_COUNT)
+        page = self.request.GET.get('page')
+        vehicles = paginator.get_page(page)
+        print(vehicles)
+        context.update({'vehicles': vehicles})
         return context
 
 
@@ -135,7 +140,7 @@ class DisplayVehicleDetail(TemplateView):
         user = self.request.session['user']
         vehicles = database.child('manufacturer').child(str(user['userId'])).child('vehicles').get()
         context = {'app': app, 'title': 'Display Vehicles'}
-        context.update(user_details(self.request, context))
+        context.update(get_user_details(self.request, context))
         if vehicles.val() is not None:
             for vehicle in vehicles.each():
                 if str(self.request.path).endswith(vehicle.key()):

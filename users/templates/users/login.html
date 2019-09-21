@@ -2,35 +2,15 @@
 {% load static %}
 {% load tags_extra %}
 {% load crispy_forms_tags %}
+{% block navigation %}
+    <li class="nav-item nav-link"><a href="{% url 'register' usertype %}">Apply for Registration</a></li>
+{% endblock navigation %}
 {% block style %}
 <style>
-{% if "manufacturer" in request.path %}
 .background-login{
-    background-image: url('{% static 'root/images/manuf_1.jpg' %}');
+    background-image: url('{% static usertype|background_image %}');
     opacity: 0.7;
 }
-{% elif 'dealer' in request.path %}
-.background-login{
-    background-image: url('{% static 'root/images/dealer_login.jpg' %}');
-    opacity: 0.7;
-}
-{% elif 'buyer' in request.path %}
-.background-login{
-    background-image: url('{% static 'root/images/hero_2.jpg' %}');
-    opacity: 0.7;
-}
-{% elif 'insurance' in request.path %}
-.background-login{
-    background-image: url('{% static 'root/images/hero_10.jpg' %}');
-    opacity: 0.7;
-}
-
-{% elif 'rto' in request.path %}
-.background-login{
-    background-image: url('{% static 'root/images/hero_3.jpg' %}');
-    opacity: 0.7;
-}
-{% endif%}
 </style>
 {% endblock style %}
 {% block content %}

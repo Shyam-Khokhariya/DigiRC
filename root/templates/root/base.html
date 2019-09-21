@@ -4,7 +4,7 @@
 <html lang="en">
 
 <head>
-
+<!--    context variables app and title from views    -->
     <title>{{ app }} - {{ title }}</title>
 
     <meta charset="utf-8">
@@ -26,36 +26,33 @@
 
     <link rel="stylesheet" href="{% static 'root/css/bootstrap-datepicker.css' %}">
     <link rel="stylesheet" href="{% static 'root/css/jquery.timepicker.css' %}">
-
-
+    {% block js %}
+    {% endblock %}
     <link rel="stylesheet" href="{% static 'root/css/flaticon.css' %}">
     <link rel="stylesheet" href="{% static 'root/css/icomoon.css' %}">
     <link rel="stylesheet" href="{% static 'root/css/style.css' %}">
     {% block style %}{% endblock %}
 </head>
-
+{% block body_content %}
 <body id="myPage">
-    <!-- Navigation -->
+{% endblock %}
     <header class="site-header">
         <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
             <div class="container">
                 <a class="navbar-brand home-title" href="{% url 'home' %}">{{ app }}</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="oi oi-menu"></span> Menu
-                  </button>
+                </button>
 
                 <div class="collapse navbar-collapse" id="ftco-nav">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item nav-link"><a href="{% url 'home' %}">Home</a></li>
-                        {% if 'manufacturer' in request.path %}
-                        <li class="nav-item nav-link"><a href="{% url 'manu-signup' %}">Apply for Registration</a></li>
-                        {% else %}
-                        <li class="nav-item nav-link"><a href="{% url 'login' usertype='manufacturer' %}">Manufacturer</a></li>
-                        <li class="nav-item nav-link"><a href="{% url 'login' usertype='dealer'%}">Dealer</a></li>
-                        <li class="nav-item nav-link"><a href="{% url 'login' usertype='buyer'%}">Buyer</a></li>
-                        <li class="nav-item nav-link"><a href="{% url 'login' usertype='insurance'%}">Insurance</a></li>
-                        <li class="nav-item nav-link"><a href="{% url 'login' usertype='rto'%}">RTO</a></li>
-                        {% endif %}
+                        {% block navigation %}
+                        {% for usertype in usertypes %}
+                        <li class="nav-item nav-link"><a href="{% url 'login' usertype %}">{{ usertype }}</a></li>
+                        {% endfor %}
+                        {% endblock %}
+                        <li class="nav-item nav-link"><a href="{% url 'about' %}">About</a></li>
                         <li class="nav-item nav-link"><a href="{% url 'contact' %}">Contact</a></li>
                     </ul>
                 </div>
@@ -71,7 +68,6 @@
                 <div class="col-md">
                     <div class="ftco-footer-widget mb-4">
                         <h2 class="ftco-heading-2">Digital RC</h2>
-                        <!-- <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p> -->
                         <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                             <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
                             <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
@@ -84,9 +80,9 @@
                         <h2 class="ftco-heading-2">Useful Links</h2>
                         <ul class="list-unstyled">
                             <li><a href="#" class="py-2 d-block">Manufacturer</a></li>
-                            <li><a href="#" class="py-2 d-block">Authorized Seller</a></li>
+                            <li><a href="#" class="py-2 d-block">Authorized Dealer</a></li>
                             <li><a href="#" class="py-2 d-block">Buyer</a></li>
-
+                            <li><a href="#" class="py-2 d-block">RTO</a></li>
                         </ul>
                     </div>
                 </div>
@@ -105,9 +101,9 @@
                         <h2 class="ftco-heading-2">Have a Questions?</h2>
                         <div class="block-23 mb-3">
                             <ul>
-                                <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-                                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-                                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+                                <li><span class="icon icon-map-marker"></span><span class="text">SCET, Surat, Gujarat, India</span></li>
+                                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+91 98547 62559</span></a></li>
+                                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">digirc2019@gmail.com</span></a></li>
                             </ul>
                         </div>
                     </div>

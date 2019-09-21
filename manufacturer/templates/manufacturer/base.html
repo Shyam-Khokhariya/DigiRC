@@ -5,7 +5,7 @@
 <html lang="en">
 
 <head>
-    <title>{{ usertype|sentence_case }}</title>
+    <title>{{ usertype }}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="{% static 'root/assets/vendor/bootstrap/css/bootstrap.min.css' %}">
@@ -38,7 +38,7 @@
                     {% if 'display' in request.path %}
                     <li class="nav-item">
                         <div id="custom-search" class="top-search-bar">
-                            <input type="text" class="form-control" name="search" id="search-bar" placeholder="Search.." onkeyup="search({{ vehicles }})"/>
+                            <input type="text" class="form-control" name="search" id="search-bar" placeholder="Search.." onkeyup="search()"/>
                         </div>
                     </li>
                     {% endif %}

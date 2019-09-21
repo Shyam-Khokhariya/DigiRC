@@ -1,5 +1,5 @@
 from django import forms
-from .models import ManufacturerVehicleInfo, ManufacturerVehicleDataSheet
+from root.models import ManufacturerVehicleInfo, ManufacturerVehicleDataSheet
 import datetime
 
 month = [(i, j) for (i, j) in

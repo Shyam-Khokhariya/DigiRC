@@ -17,3 +17,8 @@ def sentence_case(name):
 @register.filter
 def upper_case(name):
     return str(name).upper()
+
+
+@register.filter
+def background_image(name):
+    return "root/images/" + str(name).lower() + "_login.jpg"

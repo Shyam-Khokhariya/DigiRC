@@ -1,12 +1,19 @@
 {% extends "root/base.html" %}
 {% load crispy_forms_tags %}
 {% load static %}
+{% block style %}
+<style>
+.background-home{
+    background-image: url('{% static 'root/images/home.jpg' %}');
+}
+</style>
+{% endblock style %}
 {% block content %}
 
 <div class="content-home">
     <div class="hero">
         <section class="home-slider owl-carousel">
-            <div class="slider-item" style="background-image: url('{% static 'root/images/hero_1.jpg' %}') ">
+            <div class="slider-item background-home">
                 <div class="overlay"></div>
                 <div class="container">
                     <div class="row no-gutters slider-text align-items-center">

@@ -1,7 +1,9 @@
-from django.shortcuts import redirect, render
 from django.conf import settings
 from django.views.generic import TemplateView
-from django.contrib import messages
+from .forms import FeedbackForm
+from django.shortcuts import render
+import random
+import string
 
 app = settings.APP_NAME
 
@@ -9,26 +11,48 @@ auth = settings.FIREBASE.auth()
 
 database = settings.FIREBASE.database()
 
-
-def user_details(self, context):
-    if 'logged_status' in self.request.session:
-        user = self.request.session['user']
-        user_info = database.child('users').child(str(user['userId'])).child('details').get()
-        if user_info.val() is not None:
-            for info in user_info.each():
-                context.update({info.key(): info.val()})
-    return context
+usertypes = ['Manufacturer', 'Dealer', 'Buyer', 'RTO']
 
 
 class Home(TemplateView):
     template_name = 'root/home.html'
 
     def get_context_data(self, **kwargs):
-        return user_details(self, context={'app': app, 'title': 'Home'})
+        context = {'app': app, 'title': 'Home', 'usertypes': usertypes}
+        return context
 
 
 class Contact(TemplateView):
     template_name = 'root/contact.html'
 
+    def get(self, request, *args, **kwargs):
+        form = FeedbackForm()
+        context = {'app': app, 'title': 'Contact', 'usertypes': usertypes, 'form': form}
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        try:
+            form = FeedbackForm(request.POST)
+            feedback = form.save(commit=False)
+            feedback = feedback.__dict__
+            print(feedback)
+            for key in {'_state', 'id'}:
+                feedback.pop(key)
+            letters = string.ascii_letters + string.digits
+            print(letters)
+            uidLength = 16
+            uid = ''.join(random.choice(letters) for i in range(uidLength))
+            database.child('feedback').child('anonymous').child(uid).set(feedback)
+            alert = "Your Feedback is Recorded Successfully"
+        except:
+            alert = "Some Error Occured"
+        context = {'app': app, 'title': 'Contact', 'usertypes': usertypes, 'form': form, 'alert': alert}
+        return render(request, self.template_name, context)
+
+
+class About(TemplateView):
+    template_name = 'root/about.html'
+
     def get_context_data(self, **kwargs):
-        return user_details(self, context={'app': app, 'title': 'Contact'})
+        context = {'app': app, 'title': 'About', 'usertypes': usertypes}
+        return context
