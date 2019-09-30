@@ -1,21 +1,20 @@
-from django.views.generic import TemplateView, ListView
-from django.shortcuts import render, redirect
-from django.conf import settings
-from .forms import AddVehicleForm, AddVehicleFileForm
-from django.contrib import messages
-import os
 import _csv
+from django.views.generic import TemplateView
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.core.paginator import Paginator
+from DigiRC.connection import *
+from .forms import AddVehicleForm, AddVehicleFileForm
 
 app = settings.APP_NAME
-
-auth = settings.FIREBASE.auth()
-
-database = settings.FIREBASE.database()
 
 
 def get_user(request):
     return request.session['user']
+
+
+def get_file_name(request, file_name):
+    return request.FILES[file_name].name
 
 
 def get_user_details(request, context):
@@ -35,10 +34,6 @@ class Dashboard(TemplateView):
         context = {'app': app, 'title': 'Dashboard'}
         context.update(get_user_details(self.request, context))
         return context
-
-
-def get_file_name(request, file_name):
-    return request.FILES[file_name].name
 
 
 def chassis_added(vehicle, user):

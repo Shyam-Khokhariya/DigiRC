@@ -1,17 +1,17 @@
-from django.conf import settings
-from django.views.generic import TemplateView
-from .forms import FeedbackForm
-from django.shortcuts import render
 import random
 import string
+from django.http import JsonResponse
+from django.views.generic import TemplateView
+from django.shortcuts import render
+from .forms import FeedbackForm
+from DigiRC.connection import *
+from firebase_admin import auth
+
+# print(auth.get_user_by_email("shah@gmail.com").uid)
 
 app = settings.APP_NAME
 
-auth = settings.FIREBASE.auth()
-
-database = settings.FIREBASE.database()
-
-usertypes = ['Manufacturer', 'Dealer', 'Buyer', 'RTO']
+usertypes = ['manufacturer', 'dealer', 'buyer', 'rto']
 
 
 class Home(TemplateView):
@@ -31,23 +31,27 @@ class Contact(TemplateView):
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-        try:
-            form = FeedbackForm(request.POST)
+        form = FeedbackForm(request.POST)
+        if form.is_valid():
             feedback = form.save(commit=False)
             feedback = feedback.__dict__
-            print(feedback)
             for key in {'_state', 'id'}:
                 feedback.pop(key)
-            letters = string.ascii_letters + string.digits
-            print(letters)
-            uidLength = 16
-            uid = ''.join(random.choice(letters) for i in range(uidLength))
-            database.child('feedback').child('anonymous').child(uid).set(feedback)
-            alert = "Your Feedback is Recorded Successfully"
-        except:
-            alert = "Some Error Occured"
-        context = {'app': app, 'title': 'Contact', 'usertypes': usertypes, 'form': form, 'alert': alert}
-        return render(request, self.template_name, context)
+            try:
+                uid = auth.get_user_by_email(feedback.email).uid
+                database.child('feedback').child('authenticated').child(str(feedback.email).replace('.', ',')).set(
+                    feedback)
+                alert = "Your Feedback is Recorded Successfully! We will contact you in few days"
+                error = False
+            except auth.AuthError:
+                database.child('feedback').child('anonymous').child(str(feedback.email).replace('.', ',')).set(
+                    feedback)
+                alert = "Your Feedback is Recorded Successfully"
+                error = False
+        else:
+            alert = "Enter Valid Details"
+            error = True
+        return JsonResponse({'alert': alert, 'error': error})
 
 
 class About(TemplateView):

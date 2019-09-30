@@ -3,7 +3,9 @@
 {% load tags_extra %}
 {% load crispy_forms_tags %}
 {% block navigation %}
+{% if usertype != 'rto' %}
     <li class="nav-item nav-link"><a href="{% url 'register' usertype %}">Apply for Registration</a></li>
+{% endif %}
 {% endblock navigation %}
 {% block style %}
 <style>
@@ -25,23 +27,10 @@
                             <!-- This is important for security purpose -->
                             {% csrf_token %}
                             <fieldset class="form-group">
-                                {% if messages %}
-                                    {% for message in messages %}
-                                    <div class="alert alert-{{ message.tags }}">
-                                        {{ message }}
-                                    </div>
-                                    {% endfor %}
-                                {% endif %}
+                                {% include 'root/messages.html' %}
                                 <!-- Login Form -->
                                 <legend class="border-bottom mb-4 pb-2 text-center">{{ usertype|upper_case }}</legend>
-                                <label for="email" class="required-field control-label">Email</label>
-                                <input type="email" name="email" class="form-control" required="required"
-                                       title="Enter Email ID">
-                                <br>
-                                <label for="password" class="required-field control-label">Password</label>
-                                <input type="password" name="password" class="form-control" required="required"
-                                       title="Enter Password">
-                                <br>
+                                {{ form|crispy }}
                                 <!-- Forgot Password -->
                                 <a class="forgot-password" href="{% url 'forgot-password' %}">Forgot Password?</a>
                             </fieldset>

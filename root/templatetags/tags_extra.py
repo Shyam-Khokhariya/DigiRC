@@ -11,7 +11,10 @@ def month_name(month_number):
 
 @register.filter
 def sentence_case(name):
-    return str(name).title()
+    if str(name) == 'rto':
+        return str(name).upper()
+    else:
+        return str(name).title()
 
 
 @register.filter
@@ -21,4 +24,4 @@ def upper_case(name):
 
 @register.filter
 def background_image(name):
-    return "root/images/" + str(name).lower() + "_login.jpg"
+    return "root/images/usertypes/" + str(name).lower() + "_login.jpg"

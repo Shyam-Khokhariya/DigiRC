@@ -1,10 +1,10 @@
 {% extends 'manufacturer/base.html' %}
 {% load static %}
 {% load tags_extra %}
-{% block script %}
+{% block js %}
 <script type="text/javascript">
     function search(){
-        value = $('#search-bar').val()
+        value = $('.search-bar').val()
         var x = document.getElementsByClassName("vehicle");
         for (var i=0;i<x.length;i++){
             if(x[i].id.indexOf(value)==-1){
@@ -15,7 +15,7 @@
         }
     }
 </script>
-{% endblock script %}
+{% endblock js %}
 {% block style %}
 <link rel="stylesheet" href="{% static 'root/css/style.css' %}">
 <style>
@@ -61,7 +61,7 @@ th, td{
 
         {% for vehicle in vehicles %}
         <tr class="vehicle" id="{{ vehicle.chassis_no }}">
-            <td><a href="{% url 'manu-display-vehicle-detail' vehicle.chassis_no %}">{{ vehicle.chassis_no }}</a></td>
+            <td><a href="{% url 'manufacturer-display-vehicle-detail' vehicle.chassis_no %}">{{ vehicle.chassis_no }}</a></td>
             <td>{{ vehicle.model }}</td>
             <td>{{ vehicle.fuel_type }}</td>
             <td>{{ vehicle.manufacture_month|month_name }}, {{ vehicle.manufacture_year }}</td>
@@ -73,8 +73,8 @@ th, td{
     <div class="pagination">
         <span class="step-links">
             {% if vehicles.has_previous %}
-                <a class="btn btn-outline-info" href="?page=1">&laquo; first</a>
-                <a class="btn btn-outline-info" href="?page={{ vehicles.previous_page_number }}">previous</a>
+                <a class="btn btn-outline-info" href="?page=1">first</a>
+                <a class="btn btn-outline-info" href="?page={{ vehicles.previous_page_number }}">&laquo; previous</a>
             {% endif %}
 
             <span class="current">
@@ -82,8 +82,8 @@ th, td{
             </span>
 
             {% if vehicles.has_next %}
-                <a class="btn btn-outline-info" href="?page={{ vehicles.next_page_number }}">next</a>
-                <a class="btn btn-outline-info" href="?page={{ vehicles.paginator.num_pages }}">last &raquo;</a>
+                <a class="btn btn-outline-info" href="?page={{ vehicles.next_page_number }}">next &raquo;</a>
+                <a class="btn btn-outline-info" href="?page={{ vehicles.paginator.num_pages }}">last</a>
             {% endif %}
         </span>
     </div>

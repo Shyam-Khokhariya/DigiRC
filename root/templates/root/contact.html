@@ -3,16 +3,37 @@
 {% load static %}
 {% block js %}
 <script type="text/javascript">
-  function message(text){
-    if(text!=''){
-      alert(text);
-    }
-  }
+  $("#feed-submit").click(function(event){
+    event.preventDefault();
+    name = $("#id_name").val();
+    email = $("#id_email").val();
+    subject = $("#id_subject").val();
+    message = $("#id_message").val();
+    csrftoken = $("input[name='csrfmiddlewaretoken']").val();
+<!--    console.log(csrftoken);-->
+    $.ajax({
+      url: "",
+      type: "POST",
+      data: {
+        'csrfmiddlewaretoken': csrftoken,
+        'name': name,
+        'email': email,
+        'subject': subject,
+        'message': message
+      },
+      success: function(data){
+        if(!data.error){
+          $('#id_name').val('');
+          $('#id_email').val('');
+          $('#id_subject').val('');
+          $('#id_message').val('');
+        }
+        alert(data.alert);
+      }
+    });
+  });
 </script>
 {% endblock js %}
-{% block body_content %}
-<body id="myPage" onload="message('{{ alert }}')">
-{% endblock body_content %}
 {% block style %}
 <style>
 .background-contact{
@@ -73,7 +94,7 @@
                 {% csrf_token %}
                 {{ form|crispy }}
               <div class="form-group">
-                <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
+                <input type="submit" id="feed-submit" value="Send Message" class="btn btn-primary py-3 px-5">
               </div>
             </form>
           </div>
