@@ -1,7 +1,4 @@
-from django.shortcuts import redirect, render
-from django.http import HttpResponse, Http404
-from django.urls import reverse
-from urllib.parse import urlencode
+from django.shortcuts import redirect
 from django.conf import settings
 
 app = settings.APP_NAME
@@ -20,23 +17,11 @@ class LoginRequiredMiddleware:
     def process_view(request, view_func, view_args, view_kwargs):
         if 'admin' in request.path:
             return redirect('home')
+        elif 'logged_status' in request.session:
+            path = str(request.session['usertype']).lower() + "/dashboard"
+            if 'logout' in request.path:
+                pass
+            elif path not in request.path:
+                return redirect(str(request.session['usertype']).lower() + "-dashboard")
         elif 'dashboard' in request.path:
-            if 'logged_status' in request.session:
-                if str(request.session['usertype']) == 'manufacturer' and 'dashboard' not in request.path:
-                    return redirect('manu-dashboard')
-                elif str(request.session['usertype']) == 'rto' and 'dashboard' not in request.path:
-                    return redirect('rto-dashboard')
-                else:
-                    if str(request.session['usertype']) not in request.path:
-                        return redirect('home')
-            else:
-                return redirect('home')
-        elif 'logout' in request.path:
-            if 'logged_status' not in request.session:
-                return redirect('home')
-        elif '/' in request.path:
-            if 'logged_status' in request.session:
-                if str(request.session['usertype']) == 'manufacturer':
-                    return redirect('manu-dashboard')
-                elif str(request.session['usertype']) == 'rto':
-                    return redirect('rto-dashboard')
+            return redirect('home')

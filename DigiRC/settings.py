@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-import pyrebase
 from .constants import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -33,16 +32,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'manufacturer.templatetags',
     'fontawesome',
     'crispy_forms',
+    'root.templatetags',
     'root.apps.RootConfig',
     'users.apps.UsersConfig',
     'manufacturer.apps.ManufacturerConfig',
     'dealer.apps.DealerConfig',
     'buyer.apps.BuyerConfig',
     'rto.apps.RtoConfig',
-    'insurance.apps.InsuranceConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -91,18 +89,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
-FIREBASE_CONFIG = {
-    'apiKey': "AIzaSyCs4Yq8i4cBGHxFWfDNYkdybcf0DEjEkK0",
-    'authDomain': "digirc-scet.firebaseapp.com",
-    'databaseURL': "https://digirc-scet.firebaseio.com/",
-    'projectId': "digirc-scet",
-    'storageBucket': "digirc-scet.appspot.com",
-    'messagingSenderId': "483564861009",
-    'appId': "1:483564861009:web:2f9ccdf224e51d1f"
-}
-
-FIREBASE = pyrebase.initialize_app(FIREBASE_CONFIG)
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -153,3 +139,5 @@ EMAIL_PORT = EMAIL_PORT
 EMAIL_HOST_USER = EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
 EMAIL_USE_TLS = EMAIL_USE_TLS
+
+VEHICLE_COUNT = 50

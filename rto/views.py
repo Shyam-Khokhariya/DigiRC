@@ -1,18 +1,12 @@
-from django.shortcuts import render, redirect
-from django.views.generic import TemplateView
-from django.conf import settings
 import random
 import string
+from django.shortcuts import redirect
+from django.views.generic import TemplateView
 from django.contrib import messages
 from django.core.mail import send_mail
+from DigiRC.connection import *
 
 app = settings.APP_NAME
-
-auth = settings.FIREBASE.auth()
-
-database = settings.FIREBASE.database()
-
-storage = settings.FIREBASE.storage()
 
 
 def get_user(request):
