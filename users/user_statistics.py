@@ -14,7 +14,7 @@ def get_file_name(request, filename):
     return request.FILES[filename].name
 
 
-def get_user_details(self, context):
+def get_user_details(self, context={}):
     if 'logged_status' in self.request.session:
         user = get_user(self.request)
         usertype = get_usertype(self.request)
@@ -23,6 +23,11 @@ def get_user_details(self, context):
             for info in user_info.each():
                 context.update({info.key(): info.val()})
     return context
+
+
+def get_maker_name(self):
+    context = get_user_details(self)
+    return context.get('company_name')
 
 
 def already_logged(email):

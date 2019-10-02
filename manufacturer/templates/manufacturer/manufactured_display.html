@@ -3,8 +3,19 @@
 {% load tags_extra %}
 {% block js %}
 <script type="text/javascript">
-    function search(){
-        value = $('.search-bar').val()
+    function searchNav(){
+        value = $('#search-nav').val()
+        var x = document.getElementsByClassName("vehicle");
+        for (var i=0;i<x.length;i++){
+            if(x[i].id.indexOf(value)==-1){
+                $("#" + x[i].id).hide();
+            }else{
+                $("#" + x[i].id).show();
+            }
+        }
+    }
+    function searchLeft(){
+        value = $('#search-left').val()
         var x = document.getElementsByClassName("vehicle");
         for (var i=0;i<x.length;i++){
             if(x[i].id.indexOf(value)==-1){
@@ -25,6 +36,9 @@ body{
 th, td{
     padding: 10px 0px;
 }
+.pagination{
+    margin: 10px auto;
+}
 </style>
 {% endblock style %}
 {% block content %}
@@ -34,17 +48,17 @@ th, td{
         <span class="step-links">
             {% if vehicles.has_previous %}
                 <span>&laquo; </span>
-                <a class="btn btn-outline-info" href="?page=1">first</a>
-                <a class="btn btn-outline-info" href="?page={{ vehicles.previous_page_number }}">previous</a>
+                <a class="btn btn-outline-info" href="?page=1">First</a>
+                <a class="btn btn-outline-info" href="?page={{ vehicles.previous_page_number }}">Prev</a>
             {% endif %}
 
             <span class="current">
-                Page {{ vehicles.number }} of {{ vehicles.paginator.num_pages }}.
+                Page {{ vehicles.number }} of {{ vehicles.paginator.num_pages }}
             </span>
 
             {% if vehicles.has_next %}
-                <a class="btn btn-outline-info" href="?page={{ vehicles.next_page_number }}">next</a>
-                <a class="btn btn-outline-info" href="?page={{ vehicles.paginator.num_pages }}">last</a>
+                <a class="btn btn-outline-info" href="?page={{ vehicles.next_page_number }}">Next</a>
+                <a class="btn btn-outline-info" href="?page={{ vehicles.paginator.num_pages }}">Last</a>
                 <span>&raquo; </span>
             {% endif %}
         </span>
@@ -73,17 +87,19 @@ th, td{
     <div class="pagination">
         <span class="step-links">
             {% if vehicles.has_previous %}
-                <a class="btn btn-outline-info" href="?page=1">first</a>
-                <a class="btn btn-outline-info" href="?page={{ vehicles.previous_page_number }}">&laquo; previous</a>
+                <span>&laquo; </span>
+                <a class="btn btn-outline-info" href="?page=1">First</a>
+                <a class="btn btn-outline-info" href="?page={{ vehicles.previous_page_number }}">Prev</a>
             {% endif %}
 
             <span class="current">
-                Page {{ vehicles.number }} of {{ vehicles.paginator.num_pages }}.
+                Page {{ vehicles.number }} of {{ vehicles.paginator.num_pages }}
             </span>
 
             {% if vehicles.has_next %}
-                <a class="btn btn-outline-info" href="?page={{ vehicles.next_page_number }}">next &raquo;</a>
-                <a class="btn btn-outline-info" href="?page={{ vehicles.paginator.num_pages }}">last</a>
+                <a class="btn btn-outline-info" href="?page={{ vehicles.next_page_number }}">Next</a>
+                <a class="btn btn-outline-info" href="?page={{ vehicles.paginator.num_pages }}">Last</a>
+                <span>&raquo; </span>
             {% endif %}
         </span>
     </div>

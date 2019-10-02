@@ -31,7 +31,7 @@ class AddVehicle(TemplateView):
     template_name = 'manufacturer/add.html'
 
     def get(self, request, *args, **kwargs):
-        form1 = AddVehicleForm()
+        form1 = AddVehicleForm(initial={'maker': str(get_maker_name(self))})
         form2 = AddVehicleFileForm()
         context = {'app': app, 'title': 'Add Vehicle', 'form1': form1, 'form2': form2}
         context.update(get_user_details(self, context))
