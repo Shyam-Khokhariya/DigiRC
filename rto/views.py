@@ -4,35 +4,31 @@ from django.shortcuts import redirect
 from django.views.generic import TemplateView
 from django.contrib import messages
 from django.core.mail import send_mail
-from DigiRC.connection import *
+from users.user_statistics import *
 
 app = settings.APP_NAME
-
-
-def get_user(request):
-    return request.session['user']
-
-
-def user_details(request, context):
-    if 'logged_status' in request.session:
-        user = get_user(request)
-        user_info = database.child('rto').child(str(user['userId'])).child('profile').get()
-        if user_info.val() is not None:
-            for info in user_info.each():
-                context.update({info.key(): info.val()})
-    return context
 
 
 def get_requests(request):
     context = list()
     requests = database.child('requests').child('registration').get()
     if requests.val() is not None:
-        print('request available')
         for i in requests.each():
-            path = i.val().get('usertype') + "/" + i.val().get('email') + "/" + i.val().get('industry_license')
+            print(i.val())
             user = get_user(request)
             user = auth.refresh(user['refreshToken'])
-            i.val().update({'industry_license': storage.child(str(path)).get_url(user['idToken'])})
+            if i.val().get('usertype') == 'manufacturer':
+                email = 'company_email'
+            elif i.val().get('usertype') == 'dealer':
+                email = 'shop_email'
+            else:
+                email = 'email'
+            license_path = i.val().get('usertype') + "/" + i.val().get(email) + "/" + i.val().get(
+                'license')
+            logo_path = i.val().get('usertype') + "/" + i.val().get(email) + "/" + i.val().get(
+                'logo')
+            i.val().update({'license': storage.child(str(license_path)).get_url(user['idToken']),
+                            'logo': storage.child(str(logo_path)).get_url(user['idToken'])})
             context.append(i.val())
     return context
 
@@ -42,16 +38,16 @@ class Dashboard(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = {'app': app, 'title': 'Dashboard'}
-        context.update(user_details(self.request, context))
+        context.update(get_user_details(self, context))
         return context
 
 
-class RegisterationRequests(TemplateView):
+class RegistrationRequests(TemplateView):
     template_name = 'rto/request.html'
 
     def get_context_data(self, **kwargs):
         context = {'app': app, 'title': 'Requests'}
-        context.update(user_details(self.request, context))
+        context.update(get_user_details(self, context))
         context.update({'requests': get_requests(self.request)})
         return context
 
@@ -76,8 +72,8 @@ class AcceptRequest(TemplateView):
         from_email = str(settings.EMAIL_HOST_USER)
         to = list()
         to.append(email)
-        recipient_list = to
-        send_mail(subject, message, from_email, recipient_list, auth_user='digirc2019@gmail.com', auth_password='digirc!@#$19', fail_silently=False)
+        send_mail(subject, message, from_email, to, auth_user='digirc2019@gmail.com',
+                  auth_password='digirc!@#$19', fail_silently=False)
         user = auth.create_user_with_email_and_password(email, password)
         uid = user['localId']
         users = database.child('users').child(str(context.get('usertype'))).get()
@@ -99,10 +95,13 @@ class RejectRequest(TemplateView):
     def get(self, request, *args, **kwargs):
         i = str(request.path).rindex('/')
         email = str(request.path)[i + 1:]
-        # req = database.child('requests').child('registration').child(email.replace('.', ',')).get()
-        # context = dict()
-        # for i in req.each():
-        #     context.update({i.key(): i.val()})
-        # print(context)
+        subject = 'Regarding Request Rejection'
+        message = 'Hello Sir,\n your registration request for DigiRC is rejected because your documents were not ' \
+                  'correct.\nPlease provide correct documents for registration. '
+        from_email = str(settings.EMAIL_HOST_USER)
+        to = list()
+        to.append(email)
+        send_mail(subject, message, from_email, to, auth_user='digirc2019@gmail.com',
+                  auth_password='digirc!@#$19', fail_silently=False)
         database.child('requests').child('registration').child(email.replace('.', ',')).remove()
         return redirect('rto-registration-requests')

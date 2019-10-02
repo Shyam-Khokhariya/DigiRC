@@ -13,4 +13,6 @@ class Buyer(models.Model):
     email = models.EmailField()
     contact1 = models.CharField(max_length=13)
     contact2 = models.CharField(max_length=13, null=True)
-    driving_license = models.FileField(upload_to='dealer/license/')
+    license_no = models.CharField(max_length=20)
+    profile_pic = models.FileField(upload_to='buyer/profile/')
+    driving_license = models.FileField(upload_to='buyer/license/')

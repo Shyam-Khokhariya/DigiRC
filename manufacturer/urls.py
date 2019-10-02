@@ -18,7 +18,7 @@ from . import views
 
 urlpatterns = [
     path('dashboard/', views.Dashboard.as_view(), name='manufacturer-dashboard'),
-    path('dashboard/add/', views.add_vehicle, name='manufacturer-add-vehicle'),
+    path('dashboard/add/', views.AddVehicle.as_view(), name='manufacturer-add-vehicle'),
     path('dashboard/display/manufactured/', views.DisplayManufactured.as_view(), name='manufacturer-display-manufactured'),
     path('dashboard/vehicle/<str:pk>', views.DisplayVehicleDetail.as_view(),
          name='manufacturer-display-vehicle-detail'),

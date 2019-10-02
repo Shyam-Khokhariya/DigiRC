@@ -7,5 +7,6 @@ class Dealer(models.Model):
     shop_email = models.EmailField()
     shop_contact = models.CharField(max_length=13)
     owner_contact = models.CharField(max_length=13)
+    license_no = models.CharField(max_length=20)
     shop_logo = models.FileField(upload_to='dealer/logo/')
     shop_license = models.FileField(upload_to='dealer/license/')

@@ -25,3 +25,10 @@ def upper_case(name):
 @register.filter
 def background_image(name):
     return "root/images/usertypes/" + str(name).lower() + "_login.jpg"
+
+
+@register.filter
+def vehicle_label(key):
+    key = str(key).replace('_', ' ')
+    key = str(key).capitalize()
+    return key

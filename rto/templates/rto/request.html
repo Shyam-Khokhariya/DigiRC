@@ -2,6 +2,27 @@
 {% load static %}
 {% block style %}
 <link rel="stylesheet" href="{% static 'root/css/style.css' %}">
+<style type="text/css">
+    .license,
+    .logo{
+        width: 100px;
+        height: 100px;
+    }
+
+    .table-label{
+        font-weight: bold;
+    }
+
+    .request{
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .row{
+        margin-bottom: 10px;
+    }
+</style>
 {% endblock style %}
 {% block content %}
 <div class="rto-requests">
@@ -13,33 +34,48 @@
         {% endfor %}
     {% endif %}
     {% if requests|length > 0 %}
-    <table class="table-striped text-center" width="100%">
-        <tr>
-            <th>Sr. No</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Contact</th>
-            <th>User Type</th>
-            <th>License</th>
-            <th>Accept/Reject</th>
-        </tr>
-
         {% for i in requests %}
-        <tr>
-            <td>{{ forloop.counter }}</td>
-            <td>{{ i.name }}</td>
-            <td>{{ i.email }}</td>
-            <td>{{ i.contact }}</td>
-            <td>{{ i.usertype }}</td>
-            <td><a href="{{ i.industry_license }}"><img src="{{ i.industry_license }}"
-                                                        style="width: 80px; height: 100px"/></a></td>
-            <td>
-                <a class="btn btn-outline-success" href="{% url 'rto-request-accept' i.email %}">Accept</a>
-                <a class="btn btn-outline-danger" href="{% url 'rto-request-reject' i.email %}">Reject</a>
-            </td>
-        </tr>
+            {% if i.usertype == 'manufacturer' %}
+                <div class="container request">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <table>
+                                <tr>
+                                    <td class="table-label">Company Name: </td>
+                                    <td>{{ i.company_name }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-label">Owner Name: </td>
+                                    <td>{{ i.owner_name }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-label">Company Email: </td>
+                                    <td>{{ i.company_email }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-label">Company Contact: </td>
+                                    <td>{{ i.company_contact }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-label">Owner Contact: </td>
+                                    <td>{{ i.owner_contact }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-label">License No: </td>
+                                    <td>{{ i.license_no }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <img class="license" src="{{ i.license }}" alt="License not available"/>
+                            <img class="logo" style="margin-right: 50px;" src="{{ i.logo }}" alt="Logo not available"/>
+                            <a class="btn btn-outline-success" href="{% url 'rto-request-accept' i.company_email %}">Accept</a>
+                            <a class="btn btn-outline-danger" href="{% url 'rto-request-reject' i.company_email %}">Reject</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
         {% endfor %}
-    </table>
     {% else %}
     <h2> No Requests </h2>
     {% endif %}

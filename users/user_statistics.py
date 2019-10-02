@@ -1,31 +1,36 @@
 from DigiRC.connection import *
+from firebase_admin import auth as firebase_admin_auth
 
 
-def user_details(self, context):
+def get_user(request):
+    return request.session['user']
+
+
+def get_usertype(request):
+    return request.session['usertype']
+
+
+def get_file_name(request, filename):
+    return request.FILES[filename].name
+
+
+def get_user_details(self, context):
     if 'logged_status' in self.request.session:
-        user = self.request.session['user']
-        user_info = database.child('users').child(str(user['userId'])).child('profile').get()
+        user = get_user(self.request)
+        usertype = get_usertype(self.request)
+        user_info = database.child(str(usertype)).child(str(user['userId'])).child('profile').get()
         if user_info.val() is not None:
             for info in user_info.each():
                 context.update({info.key(): info.val()})
     return context
 
 
-def get_logged_user_list(usertype):
-    return database.child('users').child(usertype).get()
-
-
-def logged_user(users, email):
-    if users.val() is not None:
-        for user in users.each():
-            if user.key().replace(',', '.') == email:
-                return True
-    return False
-
-
-def check_user_exists(users, email):
-    for user_type in users.each():
-        for user_email in user_type.val():
-            if user_email.replace(',', '.') == email:
-                return True
-    return False
+def already_logged(email):
+    try:
+        user = firebase_admin_auth.get_user_by_email(email)
+        print(user)
+        if user is not None:
+            return True
+        return False
+    except:
+        return False
