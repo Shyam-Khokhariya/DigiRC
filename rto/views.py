@@ -90,8 +90,12 @@ class AcceptRequest(TemplateView):
         database.child(str(context.get('usertype'))).child(str(uid)).child('profile').set(context)
 
         rto_id = request.session['user']['userId']
-        count = int(database.child('rto').child(str(rto_id)).child('manufacturer_registered').get().val()) + 1
-        database.child('rto').child(str(rto_id)).child('manufacturer_registered').set(str(count))
+        try:
+            count = int(database.child('rto').child(str(rto_id)).child(
+                str(context.get('usertype')) + '_registered').get().val()) + 1
+            database.child('rto').child(str(rto_id)).child(str(context.get('usertype')) + '_registered').set(str(count))
+        except:
+            database.child('rto').child(str(rto_id)).child('manufacturer_registered').set("1")
         database.child(str(context.get('usertype'))).child(str(uid)).child('registered_by').set(str(rto_id))
 
         database.child('requests').child('registration').child(email.replace('.', ',')).remove()
