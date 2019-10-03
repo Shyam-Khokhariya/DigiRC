@@ -90,8 +90,9 @@ class AcceptRequest(TemplateView):
         database.child(str(context.get('usertype'))).child(str(uid)).child('profile').set(context)
 
         rto_id = request.session['user']['userId']
-        print(rto_id)
-        database.child(str(context.get('usertype'))).child(str(uid)).set({'registered_by': str(rto_id)})
+        count = int(database.child('rto').child(str(rto_id)).child('manufacturer_registered').get().val()) + 1
+        database.child('rto').child(str(rto_id)).child('manufacturer_registered').set(str(count))
+        database.child(str(context.get('usertype'))).child(str(uid)).child('registered_by').set(str(rto_id))
 
         database.child('requests').child('registration').child(email.replace('.', ',')).remove()
         messages.success(request, f'Account Credentials are sent to email')
