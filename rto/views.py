@@ -14,7 +14,6 @@ def get_requests(request):
     requests = database.child('requests').child('registration').get()
     if requests.val() is not None:
         for i in requests.each():
-            print(i.val())
             user = get_user(request)
             user = auth.refresh(user['refreshToken'])
             if i.val().get('usertype') == 'manufacturer':
@@ -65,6 +64,7 @@ class AcceptRequest(TemplateView):
         context = dict()
         for i in req.each():
             context.update({i.key(): i.val()})
+        # Email starts here
         subject = 'DigiRC Login Credentials'
         message = 'Hello Sir,\n your registration request for DigiRC is accepted successfully\n \n Your Login ' \
                   'Credentials are:\n Email: ' + email + '\nPassword: ' + password + '\nDon\'t share this ' \
@@ -74,6 +74,7 @@ class AcceptRequest(TemplateView):
         to.append(email)
         send_mail(subject, message, from_email, to, auth_user='digirc2019@gmail.com',
                   auth_password='digirc!@#$19', fail_silently=False)
+        # Email ends here
         user = auth.create_user_with_email_and_password(email, password)
         uid = user['localId']
         users = database.child('users').child(str(context.get('usertype'))).get()
@@ -82,8 +83,16 @@ class AcceptRequest(TemplateView):
             for i in users.each():
                 users_list.update({i.key(): i.val()})
         users_list.update({email.replace('.', ','): str(uid)})
-        database.child('users').child(str(context.get('usertype'))).set(users_list)
+
+        # Removed users list from firebase
+        # database.child('users').child(str(context.get('usertype'))).set(users_list)
+
         database.child(str(context.get('usertype'))).child(str(uid)).child('profile').set(context)
+
+        rto_id = request.session['user']['userId']
+        print(rto_id)
+        database.child(str(context.get('usertype'))).child(str(uid)).set({'registered_by': str(rto_id)})
+
         database.child('requests').child('registration').child(email.replace('.', ',')).remove()
         messages.success(request, f'Account Credentials are sent to email')
         return redirect('rto-registration-requests')

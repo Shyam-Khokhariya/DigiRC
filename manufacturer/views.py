@@ -21,7 +21,7 @@ def chart1(vehicles, context):
         # print(v.val())
         data = data.append(pd.DataFrame([v.val()]))
     # print(data.columns)
-    # context['data1']=data
+    context['data1'] = data
     # print(context['data1'])
     chartConfig = {
         "borderColor": "#ffffff",
@@ -168,8 +168,13 @@ class Dashboard(TemplateView):
     template_name = 'manufacturer/home.html'
 
     def get_context_data(self, **kwargs):
+        user = get_user(self.request)
+        vehicles = database.child('manufacturer').child(str(user['userId'])).child('vehicles').get()
         context = {'app': app, 'title': 'Dashboard'}
+        chart1(vehicles, context)
+        print(context)
         context.update(get_user_details(self, context))
+        print(context)
         return context
 
 

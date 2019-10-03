@@ -8,7 +8,7 @@ class RegisterManufacturerForm(forms.ModelForm):
     class Meta:
         model = Manufacturer
         fields = ['company_name', 'owner_name', 'company_email', 'company_contact', 'owner_contact', 'license_no',
-                  'company_logo', 'company_license']
+                  'address', 'city', 'state', 'company_logo', 'company_license']
 
 
 class RegisterDealerForm(forms.ModelForm):
