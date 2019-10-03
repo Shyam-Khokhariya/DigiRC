@@ -34,5 +34,6 @@ class Manufacturer(models.Model):
     company_contact = models.CharField(max_length=13)
     owner_contact = models.CharField(max_length=13)
     license_no = models.CharField(max_length=20)
+    location = models.CharField(max_length=50)
     company_logo = models.FileField(upload_to='manufacturer/logo/')
     company_license = models.FileField(upload_to='manufacturer/license/')
