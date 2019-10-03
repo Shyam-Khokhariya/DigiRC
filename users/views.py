@@ -43,7 +43,7 @@ def manu_register(request):
                 email = request.POST.get('company_email')
                 print(email)
                 if not already_logged(email):
-                    users = database.child('requests').child('registration').get()
+                    users = database.child('requests').child('registration').child(str(email)).get()
                     print(users)
                     if users.val() is not None:
                         messages.error(request, f'Already Applied for Registration, We will contact you in 1 or 2 days')
@@ -114,9 +114,14 @@ def dealer_register(request):
         if form.is_valid():
             try:
                 email = request.POST.get('email')
-                if already_logged(email):
+                print(email)
+                if not already_logged(email):
                     users = database.child('requests').child('registration').child(str(email)).get()
-                    if users.val() is None:
+                    print(users)
+                    if users.val() is not None:
+                        messages.error(request, f'Already Applied for Registration, We will contact you in 1 or 2 days')
+                    else:
+                        print('hello')
                         file_name1 = request.FILES['shop_license']
                         file_name2 = request.FILES['shop_logo']
                         if str(file_name1).find('.jpeg') == -1 and str(file_name1).find('.jpg') == -1 and str(
@@ -130,6 +135,7 @@ def dealer_register(request):
                             user = form.save()
                             user = user.__dict__
                             # Make path to local user directory for uploaded license
+                            print(user)
                             path1 = os.path.join(settings.BASE_DIR, 'media') + "/" + str(user.get('shop_license'))
                             path2 = os.path.join(settings.BASE_DIR, 'media') + "/" + str(user.get('shop_logo'))
                             if str(file_name1).find('.jpg') != -1:
@@ -146,20 +152,21 @@ def dealer_register(request):
                                 file_name2 = 'logo.png'
                             for key in {'_state', 'id', 'shop_license', 'shop_logo'}:
                                 user.pop(key)
+                            print(user)
                             user.update(
                                 {'license': file_name1, 'logo': file_name2, 'usertype': 'dealer'})
+                            print(user)
                             # Upload license in firebase storage
-                            storage.child('dealer').child(str(user.get('email'))).child(str(file_name1)).put(path1)
-                            storage.child('dealer').child(str(user.get('email'))).child(str(file_name2)).put(path2)
+                            storage.child('dealer').child(str(email)).child(str(file_name1)).put(path1)
+                            storage.child('dealer').child(str(email)).child(str(file_name2)).put(path2)
                             # Upload Data in firebase Database
                             database.child('requests').child('registration').child(
-                                str(user.get('email')).replace('.', ',')).set(user)
+                                str(email).replace('.', ',')).set(user)
+                            print('databse done')
                             # Remove Image From Uploaded Directory
                             os.remove(path1)
                             os.remove(path2)
                             messages.success(request, f'Applied for Registration')
-                    else:
-                        messages.error(request, f'Already Applied for Registration, We will contact you in 1 or 2 days')
                 else:
                     messages.error(request, f'Email Already Registered! Try to login')
             except:
