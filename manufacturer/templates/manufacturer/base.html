@@ -8,6 +8,16 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <script type="text/javascript" src="{% static 'root/FusionChartjs/fusioncharts.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'root/FusionChartjs/themes/fusioncharts.theme.fusion.js' %}"></script>
+
+    <style type="text/css">
+        g[class$='creditgroup'] {
+             display:none !important;
+        }
+    </style>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'root/assets/vendor/bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'root/assets/vendor/fonts/circular-std/style.css' %}">
@@ -26,14 +36,14 @@
     {% endblock %}
     {% block js %}
     {% endblock %}
-    <title>{{ name }}</title>
+    <title>{{ company_name }}</title>
 </head>
 
 <body>
 <div class="dashboard-main-wrapper">
     <div class="dashboard-header">
         <nav class="navbar navbar-expand-lg navbar-expand-md bg-white fixed-top">
-            <a class="navbar-brand" href="{% url 'manufacturer-dashboard' %}">{{ name }}</a>
+            <a class="navbar-brand" href="{% url 'manufacturer-dashboard' %}">{{ company_name }}</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -43,8 +53,8 @@
                     {% if 'display' in request.path %}
                     <li class="nav-item">
                         <div class="custom-search top-search-bar">
-                            <input type="text" class="form-control search-bar" name="search" placeholder="Search.."
-                                   onkeyup="search()"/>
+                            <input type="text" class="form-control" id="search-nav" name="search" placeholder="Search.."
+                                   onkeyup="searchNav()"/>
                         </div>
                     </li>
                     {% endif %}
@@ -56,7 +66,7 @@
     <div class="nav-left-sidebar sidebar-dark">
         <div class="menu-list">
             <nav class="navbar navbar-expand-lg navbar-expand-md navbar-light">
-                <a class="d-xl-none d-md-none" href="#">{{ name }}</a>
+                <a class="d-xl-none d-md-none" href="#">Menu</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -85,9 +95,8 @@
                         {% if 'display' in request.path %}
                         <li class="nav-item search-sm">
                             <div id="custom-search" class="top-search-bar">
-                                <input type="text" class="form-control" name="search" id="search-bar"
-                                       placeholder="Search.."
-                                       onkeyup="search()"/>
+                                <input type="text" class="form-control" id="search-left" name="search" placeholder="Search.."
+                                       onkeyup="searchLeft()"/>
                             </div>
                         </li>
                         {% endif %}
@@ -99,20 +108,6 @@
 
     {% block content %}
     {% endblock %}
-
-    <div class="footer">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xl-12 col-lg-6 col-md-6 col-sm-12 col-12">
-                    <div class="text-md-right footer-links d-none d-sm-block">
-                        <a href="javascript: void(0);">About</a>
-                        <a href="javascript: void(0);">Support</a>
-                        <a href="javascript: void(0);">Contact Us</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <script src="{% static 'root/assets/vendor/jquery/jquery-3.3.1.min.js' %}"></script>

@@ -3,8 +3,12 @@
 {% load tags_extra %}
 {% load crispy_forms_tags %}
 {% block navigation %}
-{% if usertype != 'rto' %}
-    <li class="nav-item nav-link"><a href="{% url 'register' usertype %}">Apply for Registration</a></li>
+{% if usertype == 'manufacturer' %}
+<li class="nav-item nav-link"><a href="{% url 'register-manufacturer' %}">Apply for Registration</a></li>
+{% elif usertype == 'dealer' %}
+<li class="nav-item nav-link"><a href="{% url 'register-dealer' %}">Apply for Registration</a></li>
+{% elif usertype == 'buyer' %}
+<li class="nav-item nav-link"><a href="{% url 'register-buyer' %}">Apply for Registration</a></li>
 {% endif %}
 {% endblock navigation %}
 {% block style %}
@@ -12,34 +16,33 @@
 .background-login{
     background-image: url('{% static usertype|background_image %}');
     opacity: 0.7;
+    background-position: center;
+    background-size: cover;
 }
 </style>
 {% endblock style %}
 {% block content %}
 <div class="hero">
-    <section class="home-slider owl-carousel">
-        <div class="slider-item background-login">
-            <div class="overlay"></div>
-            <div class="container">
-                <div class="row no-gutters slider-text align-login-box">
-                    <div class="col-md-5 ml-auto">
-                        <form method="POST" class="bg-white p-5 login">
-                            <!-- This is important for security purpose -->
-                            {% csrf_token %}
-                            <fieldset class="form-group">
-                                {% include 'root/messages.html' %}
-                                <!-- Login Form -->
-                                <legend class="border-bottom mb-4 pb-2 text-center">{{ usertype|upper_case }}</legend>
-                                {{ form|crispy }}
-                                <!-- Forgot Password -->
-                                <a class="forgot-password" href="{% url 'forgot-password' %}">Forgot Password?</a>
-                            </fieldset>
-                            <!-- Submit Button -->
-                            <div class="form-group">
-                                <button class="btn btn-outline-success btn-block py-2" type="submit">Login</button>
-                            </div>
-                        </form>
-                    </div>
+    <section class="slider-item background-login">
+        <div class="container">
+            <div class="row slider-text align-login-box">
+                <div class="col-md-5 ml-auto">
+                    <form method="POST" class="bg-white p-5 login">
+                        <!-- This is important for security purpose -->
+                        {% csrf_token %}
+                        <fieldset class="form-group">
+                            {% include 'root/messages.html' %}
+                            <!-- Login Form -->
+                            <legend class="border-bottom mb-4 pb-2 text-center">{{ usertype|upper_case }}</legend>
+                            {{ form|crispy }}
+                            <!-- Forgot Password -->
+                            <a class="forgot-password" href="{% url 'forgot-password' %}">Forgot Password?</a>
+                        </fieldset>
+                        <!-- Submit Button -->
+                        <div class="form-group">
+                            <button class="btn btn-outline-success btn-block py-2" type="submit">Login</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

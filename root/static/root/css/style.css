@@ -327,7 +327,7 @@ legend {
     width: 100%;
     max-width: 100%;
     padding: 0;
-    margin-bottom: .5rem;
+    margin-bottom: 0rem !important;
     font-size: 1.5rem;
     line-height: inherit;
     color: inherit;
@@ -11485,7 +11485,6 @@ h5,
 }
 
 .hero {
-    height: 600px;
     position: relative;
     z-index: 0;
 }
@@ -13926,19 +13925,12 @@ textarea.form-control {
 }
 
 .align-login-box{
-   padding-top: 50px;
+   padding-top: 80px;
+   padding-bottom: 80px;
 }
 
 .btn-outline-success{
     border-radius: 5px;
-}
-
-.add-vehicle-form,
-.display-manufactured-data,
-.display-vehicle-data{
-    padding: 30px 50px;
-    margin: 100px 0px 30px 310px;
-    width: 75%;
 }
 
 .rto-requests{
@@ -13976,4 +13968,36 @@ textarea.form-control {
 .logout-button{
     background-color: #ffffff;
     margin-right: 30px;
+}
+
+@media only screen and (max-width:768px){
+    .add-vehicle-form,
+    .display-manufactured-data{
+        padding: 30px 30px;
+        margin: 30px 20px;
+    }
+
+    .display-vehicle-data{
+        width: 90%;
+        margin: 30px auto;
+        padding: 30px 10px;
+    }
+}
+
+@media only screen and (min-width:768px){
+    .add-vehicle-form,
+    .display-manufactured-data,
+    .display-vehicle-data{
+        padding: 30px 50px;
+        margin: 30px 20px 30px 280px;
+        width: 77%;
+    }
+
+    .search-sm{
+        display: none;
+    }
+}
+
+.text-right{
+    text-align: right;
 }

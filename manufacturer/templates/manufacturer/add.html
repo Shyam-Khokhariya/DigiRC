@@ -3,6 +3,16 @@
 {% load crispy_forms_tags %}
 {% block style %}
 <link rel="stylesheet" href="{% static 'root/css/style.css' %}">
+<style>
+body{
+    overflow-x: scroll !important;
+}
+@media only screen and (min-width:992px){
+    .add-form-border{
+        border-right: 2px solid #eeeeee;
+    }
+}
+</style>
 {% endblock style %}
 {% block content %}
 <div class="add-vehicle-form">
@@ -14,23 +24,27 @@
         {% endfor %}
     {% endif %}
     <div class="row">
-        <legend class="border-bottom mb-4 pb-2 text-center">Add Vehicle</legend>
-        <div class="col-md-6">
+        <legend class="border-bottom pb-2 text-center">Add Vehicle</legend>
+        <div class="col-lg-8 add-form-border pt-3">
             <form method="POST">
                 <!-- This is important for security purpose -->
                 {% csrf_token %}
                 <fieldset class="form-group">
-                    {{ form1|crispy }}
+                    <div class="row">
+                        {% for field in form1 %}
+                            <div class="col-md-6">
+                                {{ field|as_crispy_field }}
+                            </div>
+                        {% endfor %}
+                    </div>
                 </fieldset>
                 <div class="form-group">
                     <button class="btn btn-outline-success btn-block py-2" name="form1" type="submit">Add</button>
                 </div>
             </form>
         </div>
-        <div class="col-md-2">
-            <p class="text-center" style="font-size: 24px">Or</p>
-        </div>
-        <div class="col-md-4 ml-auto">
+        <div class="col-lg-4 ml-auto pt-3">
+            <h4 class="text-center">Or</h4>
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <fieldset class="form-group">

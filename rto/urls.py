@@ -18,7 +18,7 @@ from . import views
 
 urlpatterns = [
     path('dashboard/', views.Dashboard.as_view(), name='rto-dashboard'),
-    path('dashboard/Requests', views.RegisterationRequests.as_view(), name='rto-registration-requests'),
+    path('dashboard/Requests', views.RegistrationRequests.as_view(), name='rto-registration-requests'),
     path('dashboard/Requests/accept/<str:pk>', views.AcceptRequest.as_view(), name='rto-request-accept'),
     path('dashboard/Requests/reject/<str:pk>', views.RejectRequest.as_view(), name='rto-request-reject'),
 ]

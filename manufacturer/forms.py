@@ -1,13 +1,15 @@
-from django import forms
-from .models import ManufacturerVehicleInfo, ManufacturerVehicleDataSheet
 import datetime
 import calendar
+from django import forms
+from .models import ManufacturerVehicleInfo, ManufacturerVehicleDataSheet
+from users.user_statistics import *
 
 month = [(i, calendar.month_name[i]) for i in range(1, 13)]
 year = [(i, i) for i in range(1901, 2101)]
 current_year = datetime.date.today().year
 current_month = month[datetime.date.today().month - 1]
-fuel = [(i, i) for i in ['Petrol', 'Diesel', 'CNG']]
+fuel = [(i, i) for i in
+        ['Petrol', 'Petrol/CNG', 'Petrol/Hybrid', 'Petrol/LPG', 'Diesel', 'Diesel/Hybrid', 'CNG', 'LPG', 'Electric(BOV)']]
 vehicle_class_choice = [(i, i) for i in ['Light Vehicles', 'Medium Heavy Vehicles', 'Large Heavy Vehicles',
                                          'Extra Large Heavy Vehicles']]
 
