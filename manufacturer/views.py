@@ -1,3 +1,4 @@
+import random
 import _csv
 from django.views.generic import TemplateView
 from django.contrib import messages
@@ -13,7 +14,17 @@ import pandas as pd
 from collections import OrderedDict
 import numpy as np
 
-
+color=['#B22222','#DC143C','#FF0000','#FF6347','#FF7F50','#CD5C5C','#F08080','#E9967A','#FA8072','#FFA07A',
+'#FF4500','#FF8C00','#FFA500','#FFD700','#B8860B','#DAA520','#EEE8AA','#BDB76B','#F0E68C','#808000','#FFFF00','#9ACD32','#556B2F',
+'#6B8E23','#7CFC00','#7FFF00','#ADFF2F','#006400','#008000','#228B22','#00FF00','#32CD32','#90EE90','#98FB98','#8FBC8F','#00FA9A',
+'#00FF7F','#2E8B57','#66CDAA','#3CB371','#20B2AA','#2F4F4F','#008080','#008B8B','#00FFFF','#00FFFF','#E0FFFF','#00CED1','#40E0D0',
+'#48D1CC','#AFEEEE','#7FFFD4','#B0E0E6','#5F9EA0','#4682B4','#6495ED','#00BFFF','#1E90FF','#ADD8E6','#87CEEB','#87CEFA','#191970',
+'#000080','#00008B','#0000CD','#0000FF','#4169E1','#8A2BE2','#4B0082','#483D8B','#6A5ACD','#7B68EE','#9370DB','#8B008B','#9400D3',
+'#9932CC','#BA55D3','#800080','#D8BFD8','#DDA0DD','#EE82EE','#FF00FF','#DA70D6','#C71585','#DB7093','#FF1493','#FF69B4','#FFB6C1',
+'#FFC0CB','#FAEBD7','#F5F5DC','#FFE4C4','#FFEBCD','#F5DEB3','#FFF8DC','#FFFACD','#FAFAD2','#FFFFE0','#8B4513','#A0522D','#D2691E',
+'#CD853F','#F4A460','#DEB887','#D2B48C','#BC8F8F','#FFE4B5','#FFDEAD','#FFDAB9','#FFE4E1','#FFF0F5','#FAF0E6','#FDF5E6','#FFEFD5',
+'#FFF5EE','#F5FFFA','#708090','#778899','#B0C4DE','#E6E6FA','#FFFAF0','#F0F8FF','#F8F8FF','#F0FFF0','#FFFFF0','#F0FFFF','#FFFAFA',
+'#000000','#696969','#808080','#A9A9A9','#C0C0C0','#D3D3D3','#DCDCDC','#F5F5F5','#FFFFFF','#800000','#8B0000','#A52A2A']
 def chart1(vehicles, context):
     dataSource = {}
     data = pd.DataFrame()
@@ -23,6 +34,22 @@ def chart1(vehicles, context):
     # print(data.columns)
     context['data1'] = data
     # print(context['data1'])
+    chartData = {}
+    u_body_type= data.vehicle_type.unique()
+    list_body_type = list(data.vehicle_type)
+    # print(u_body_type)
+    for d in u_body_type:
+        chartData[d] = list_body_type.count(d)
+    # color_count=len(u_body_type)
+    # red=random.sample(range(0,255),color_count)
+    # green=random.sample(range(0,255),color_count)
+    # blue=random.sample(range(0,255),color_count)
+    # # p = lambda: random.randint(0, 255)
+    # color = '#%02X%02X%02X' % (red[0], green[0], blue[0])
+    # # print(color_count)
+    # for i in range(1,color_count):
+    #     # r = lambda: random.randint(0, 255)
+    #     color=color+(',#%02X%02X%02X' % (red[i], green[i], blue[i]))
     chartConfig = {
         "borderColor": "#ffffff",
         "bgColor": "#ffffff",
@@ -30,20 +57,13 @@ def chart1(vehicles, context):
         "theme": "fusion",
         "xAxisName": "Vehicle Type",
         "yAxisName": "Sales",
-        "palettecolors": "#cbe86d,#a8d3ed,#ffcd8c,#ffabdd",
+        "palettecolors": color,
 
         "showRealTimeValue": "0",
 
     }
 
     # The `chartData` dict contains key-value pairs data
-    chartData = {}
-
-    u_body_type = data.body_type.unique()
-    list_body_type = list(data.body_type)
-    # print(u_body_type)
-    for d in u_body_type:
-        chartData[d] = list_body_type.count(d)
     # print(chartData)
     dataSource["chart"] = chartConfig
     dataSource["data"] = []
@@ -84,7 +104,7 @@ def chart1(vehicles, context):
     }
     ]
     total_vehicle1["data"] = []
-    print(total_vehicle1["categories"][0]["category"])
+    # print(total_vehicle1["categories"][0]["category"])
     year = data.manufacture_year.unique()
     year.sort()
     total_vehicle1["categories"][0]["category"].append({"label": (str)(int(year[0]) - 1)})
@@ -125,28 +145,32 @@ def chart1(vehicles, context):
     growth = (total_vehicle1["dataset"][0]["data"][-1]["value"] - total_vehicle1["dataset"][0]["data"][-2]["value"]) / \
              total_vehicle1["dataset"][0]["data"][-2]["value"]
     context['Growth'] = round(growth * 100, 2)
-
-    print(data.status.unique())
+    print(color)
+    # print(data.status.unique())
 
     chartConfig = {
-        "numberPrefix": "$",
-        "defaultCenterLabel": "Total revenue: $64.08K",
-        "centerLabel": "Revenue from $label: $value",
-        "pieRadius": "40%",
-        "labelDistance": "10px",
-        "doughnutRadius": "200%",
-        "enableSmartLabels": "1",
-        "manageLabelOverflow": "1",
-        "labelPosition": "Outside",
-        "showPercentInToolTip": "1",
-        "useEllipsesWhenOverflow": "1",
+        "defaultCenterLabel": "Vehicle Manufactured: "+str(data.shape[0]),
+        # "centerLabel": " $label : $value",
+        "pieRadius": "60%",
+        "doughnutRadius": "158%",
+        "showLegend":'1',
+        "use3DLighting":'1',
+        "palettecolors": color,
+        "showLabels":'0',
+        "showToolTip":'1',
+        "showToolBarButtonToolText":'0',
+        "enableSmartLabels": "0",
+        "manageLabelOverflow": "0",
+        "showPercentInToolTip": "0",
+        "useEllipsesWhenOverflow": "0",
         "theme": "fusion"
     }
 
+
     # The `chartData` dict contains key-value pairs data
     chartData = {}
-    u_body_type = data.body_type.unique()
-    list_body_type = list(data.body_type)
+    u_body_type = data.vehicle_type.unique()
+    list_body_type = list(data.vehicle_type)
     # print(u_body_type)
     for d in u_body_type:
         chartData[d] = list_body_type.count(d)
@@ -154,13 +178,13 @@ def chart1(vehicles, context):
     dataSource["chart"] = chartConfig
     dataSource["data"] = []
 
-    for key, value in chartData.items():
+    for label, value in chartData.items():
         data1 = {}
-        data1["label"] = key
+        data1["label"] = label
         data1["value"] = value
         dataSource["data"].append(data1)
 
-    Dough = FusionCharts("doughnut2d", "do", "100%", "300%", "dough", "json", dataSource)
+    Dough = FusionCharts("doughnut2d", "do", "100%", "600%", "dough", "json", dataSource)
     context['op_dough'] = Dough.render()
 
 
@@ -171,10 +195,11 @@ class Dashboard(TemplateView):
         user = get_user(self.request)
         vehicles = database.child('manufacturer').child(str(user['userId'])).child('vehicles').get()
         context = {'app': app, 'title': 'Dashboard'}
-        chart1(vehicles, context)
-        print(context)
+        if vehicles.each()!=None:
+            chart1(vehicles, context)
+        # print(context)
         context.update(get_user_details(self, context))
-        print(context)
+        # print(context)
         return context
 
 

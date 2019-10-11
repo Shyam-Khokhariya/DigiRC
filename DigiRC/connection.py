@@ -22,6 +22,6 @@ database = firebase.database()
 
 storage = firebase.storage()
 
-filepath = os.path.join(settings.BASE_DIR, 'DigiRC\\service_account_key.json')
+filepath = os.path.join(settings.BASE_DIR, 'DigiRC//service_account_key.json')
 cred = credentials.Certificate(filepath)
 firebase_admin.initialize_app(cred)
