@@ -5,7 +5,7 @@ class ManufacturerVehicleInfo(models.Model):
     chassis_no = models.CharField(max_length=17)
     engine_no = models.CharField(max_length=10)
     fuel_type = models.TextField()
-    maker = models.TextField()
+    maker = models.CharField(max_length=50)
     model = models.TextField()
     vehicle_class = models.TextField()
     body_type = models.TextField()

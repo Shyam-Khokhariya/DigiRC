@@ -14,6 +14,7 @@ def get_requests(request):
     requests = database.child('requests').child('registration').get()
     if requests.val() is not None:
         for i in requests.each():
+            print(i.val())
             user = get_user(request)
             user = auth.refresh(user['refreshToken'])
             if i.val().get('usertype') == 'manufacturer':
@@ -95,7 +96,7 @@ class AcceptRequest(TemplateView):
                 str(context.get('usertype')) + '_registered').get().val()) + 1
             database.child('rto').child(str(rto_id)).child(str(context.get('usertype')) + '_registered').set(str(count))
         except:
-            database.child('rto').child(str(rto_id)).child('manufacturer_registered').set("1")
+            database.child('rto').child(str(rto_id)).child(str(context.get('usertype')) + '_registered').set("1")
         database.child(str(context.get('usertype'))).child(str(uid)).child('registered_by').set(str(rto_id))
 
         database.child('requests').child('registration').child(email.replace('.', ',')).remove()

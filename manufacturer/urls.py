@@ -19,7 +19,11 @@ from . import views
 urlpatterns = [
     path('dashboard/', views.Dashboard.as_view(), name='manufacturer-dashboard'),
     path('dashboard/add/', views.AddVehicle.as_view(), name='manufacturer-add-vehicle'),
-    path('dashboard/display/manufactured/', views.DisplayManufactured.as_view(), name='manufacturer-display-manufactured'),
+    path('dashboard/display/', views.DisplayManufactured.as_view(),
+         name='manufacturer-display'),
     path('dashboard/vehicle/<str:pk>', views.DisplayVehicleDetail.as_view(),
          name='manufacturer-display-vehicle-detail'),
+    path('dashboard/assign/', views.AssignDealer.as_view(), name='vehicle-dealer-assign'),
+    path('dashboard/update/<str:pk>', views.UpdateView.as_view(), name='vehicle-update'),
+    path('dashboard/delete/<str:pk>', views.DeleteView.as_view(), name='vehicle-delete'),
 ]

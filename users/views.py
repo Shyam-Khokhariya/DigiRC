@@ -43,17 +43,17 @@ def manu_register(request):
                 email = request.POST.get('company_email')
                 print(email)
                 if not already_logged(email):
-                    users = database.child('requests').child('registration').child(str(email)).get()
-                    print(users)
-                    if users.val() is not None:
+                    try:
+                        users = database.child('requests').child('registration').child(str(email)).get()
+                        print(users)
                         messages.error(request, f'Already Applied for Registration, We will contact you in 1 or 2 days')
-                    else:
+                    except:
                         print('hello')
                         file_name1 = request.FILES['company_license']
                         file_name2 = request.FILES['company_logo']
                         if str(file_name1).find('.jpeg') == -1 and str(file_name1).find('.jpg') == -1 and str(
                                 file_name1).find(
-                                '.png') == -1:
+                            '.png') == -1:
                             messages.error(request, f'License Must be in JPG/PNG Format')
                         elif str(file_name2).find('.jpeg') == -1 and str(file_name2).find('.jpg') == -1 and str(
                                 file_name2).find('.png') == -1:
@@ -112,21 +112,21 @@ def dealer_register(request):
     if request.method == 'POST':
         form = RegisterDealerForm(request.POST, request.FILES)
         if form.is_valid():
-            try:
-                email = request.POST.get('email')
+            # try:
+                email = request.POST.get('shop_email')
                 print(email)
                 if not already_logged(email):
-                    users = database.child('requests').child('registration').child(str(email)).get()
-                    print(users)
-                    if users.val() is not None:
+                    try:
+                        users = database.child('requests').child('registration').child(str(email)).get()
+                        print(users)
                         messages.error(request, f'Already Applied for Registration, We will contact you in 1 or 2 days')
-                    else:
+                    except:
                         print('hello')
                         file_name1 = request.FILES['shop_license']
                         file_name2 = request.FILES['shop_logo']
                         if str(file_name1).find('.jpeg') == -1 and str(file_name1).find('.jpg') == -1 and str(
                                 file_name1).find(
-                                '.png') == -1:
+                            '.png') == -1:
                             messages.error(request, f'License Must be in JPG/PNG Format')
                         elif str(file_name2).find('.jpeg') == -1 and str(file_name2).find('.jpg') == -1 and str(
                                 file_name2).find('.png') == -1:
@@ -156,6 +156,10 @@ def dealer_register(request):
                             user.update(
                                 {'license': file_name1, 'logo': file_name2, 'usertype': 'dealer'})
                             print(user)
+                            if user.get('brand_names') == '':
+                                user.pop('brand_names')
+                            else:
+                                user.pop('authorized_brand')
                             # Upload license in firebase storage
                             storage.child('dealer').child(str(email)).child(str(file_name1)).put(path1)
                             storage.child('dealer').child(str(email)).child(str(file_name2)).put(path2)
@@ -169,8 +173,8 @@ def dealer_register(request):
                             messages.success(request, f'Applied for Registration')
                 else:
                     messages.error(request, f'Email Already Registered! Try to login')
-            except:
-                messages.error(request, f'System Error')
+            # except:
+            #     messages.error(request, f'System Error')
         else:
             print(form.errors)
             messages.error(request, f'Invalid Details')
@@ -193,7 +197,7 @@ def buyer_register(request):
                         file_name2 = request.FILES['profile_pic']
                         if str(file_name1).find('.jpeg') == -1 and str(file_name1).find('.jpg') == -1 and str(
                                 file_name1).find(
-                                '.png') == -1:
+                            '.png') == -1:
                             messages.error(request, f'License Must be in JPG/PNG Format')
                         elif str(file_name2).find('.jpeg') == -1 and str(file_name2).find('.jpg') == -1 and str(
                                 file_name2).find('.png') == -1:

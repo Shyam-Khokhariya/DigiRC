@@ -1,0 +1,118 @@
+{% extends 'dealer/base.html' %}
+{% load static %}
+{% load fontawesome %}
+{% load tags_extra %}
+{% block js %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        //console.log('hello');
+        $('.unavailable').hide();
+    });
+    function searchNav() {
+        value = $('#search-nav').val()
+        var x = document.getElementsByClassName("vehicle");
+        var flag = 0;
+        for (var i = 0; i < x.length; i++) {
+            if (x[i].id.indexOf(value) == -1) {
+                $("#" + x[i].id).hide();
+            } else {
+                flag = 1;
+                $("#" + x[i].id).show();
+            }
+        }
+        if (flag == 0) {
+            $('.available').hide();
+            $('.unavailable').show();
+        } else {
+            $('.unavailable').hide();
+            $('.available').show();
+        }
+    }
+    function searchLeft() {
+        value = $('#search-left').val()
+        var x = document.getElementsByClassName("vehicle");
+        var flag = 0;
+        for (var i = 0; i < x.length; i++) {
+            if (x[i].id.indexOf(value) == -1) {
+                $("#" + x[i].id).hide();
+            } else {
+                flag = 1;
+                $("#" + x[i].id).show();
+            }
+        }
+        if (flag == 0) {
+            $('.available').hide();
+            $('.unavailable').show();
+        } else {
+            $('.unavailable').hide();
+            $('.available').show();
+        }
+    }
+
+</script>
+{% endblock js %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'root/css/style.css' %}">
+<style>
+    body {
+        background-color: #ffffff;
+    }
+
+    th,
+    td {
+        padding: 10px 0px;
+    }
+
+    .pagination {
+        margin: 10px auto;
+    }
+</style>
+{% endblock style %}
+{% block content %}
+<div class="display-manufactured-data table-responsive">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    <div class="available">
+        {% if data_list|length > 0 %}
+        <table class="table-bordered text-center" width="100%">
+            <tr>
+                <th>Sr. No.</th>
+                <th>Company Name</th>
+                <th>Chassis List</th>
+                <th>Date Time Dispatched</th>
+                <th>Accept/Reject</th>
+            </tr>
+
+            {% for delivery in data_list %}
+            <tr class="delivery" id="{{ delivery.manufacturer_name }}">
+                <td>{{ forloop.counter }}</td>
+                <td>{{ delivery.manufacturer_name }}</td>
+                <td>
+                    {% for chassis in delivery.chassis_list %}
+                        <p>{{chassis}}</p>
+                    {% endfor %}
+                </td>
+                <td>{{ delivery.date_time }}</td>
+                <td>
+                    <span>
+                        <a class="btn btn-outline-success" href="{% url 'delivery-accept' delivery.manufacturer_id %}">Accept</a>
+                        <a class="btn btn-outline-danger" href="{% url 'delivery-reject' delivery.manufacturer_id %}">Reject</a>
+                    </span>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <h4>No Deliveries Available</h4>
+        {% endif %}
+    </div>
+    <div class="unavailable">
+        <h4 class="text-center">Vehicle Searched is Not Available</h4>
+    </div>
+</div>
+{% endblock content %}

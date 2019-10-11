@@ -3,6 +3,7 @@ import pyrebase
 import os
 from django.conf import settings
 from firebase_admin import credentials
+from firebase_admin import firestore
 
 firebase_config = {
     'apiKey': "AIzaSyCs4Yq8i4cBGHxFWfDNYkdybcf0DEjEkK0",

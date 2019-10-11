@@ -20,20 +20,21 @@
     <link rel="stylesheet" href="{% static 'root/assets/vendor/charts/c3charts/c3.css' %}">
     <link rel="stylesheet" href="{% static 'root/assets/vendor/fonts/flag-icon-css/flag-icon.min.css' %}">
     <link rel="stylesheet" href="{% static 'root/css/style.css' %}">
-    <link rel="shortcut icon" href="{% static 'root/images/favicon.ico' %}" type="image/vnd.microsoft.icon"/>
+    <link rel="shortcut icon" href="{% static 'root/images/favicon.png' %}" type="image/png" />
+    <script src="{% static 'root/assets/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
 
     {% block style %}
     {% endblock %}
     {% block js %}
     {% endblock %}
-    <title>{{ name }}</title>
+    <title>{{ shop_name }}</title>
 </head>
 
 <body>
 <div class="dashboard-main-wrapper">
     <div class="dashboard-header">
         <nav class="navbar navbar-expand-lg navbar-expand-md bg-white fixed-top">
-            <a class="navbar-brand" href="{% url 'manufacturer-dashboard' %}">{{ name }}</a>
+            <a class="navbar-brand" href="{% url 'dealer-dashboard' %}">{{ shop_name }}</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -56,7 +57,7 @@
     <div class="nav-left-sidebar sidebar-dark">
         <div class="menu-list">
             <nav class="navbar navbar-expand-lg navbar-expand-md navbar-light">
-                <a class="d-xl-none d-md-none" href="#">{{ name }}</a>
+                <a class="d-xl-none d-md-none" href="#">{{ shop_name }}</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -64,19 +65,12 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav flex-column">
                         <li class="nav-item ">
-                            <a class="nav-link" href="{% url 'manufacturer-dashboard' %}" aria-controls="submenu-1"><i
+                            <a class="nav-link" href="{% url 'dealer-dashboard' %}" aria-controls="submenu-1"><i
                                     class="fa fa-fw fa-user-circle"></i>Dashboard</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'manufacturer-add-vehicle' %}" aria-controls="submenu-2"><i
-                                    class="fa fa-fw fa-car"></i>Add New Vehicle</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'manufacturer-display-manufactured' %}"
-                               aria-controls="submenu-2"><i class="fa fa-fw fa-chart-pie"></i>Manufactured Vehicles</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" aria-controls="submenu-2"><i class="fa fa-fw fa-user"></i>About</a>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="{% url 'delivery-list' %}" aria-controls="submenu-1"><i
+                                    class="fa fa-fw fa-car"></i>Delivery List</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'logout' %}"><i
@@ -115,7 +109,6 @@
     </div>
 </div>
 
-<script src="{% static 'root/assets/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
 <script src="{% static 'root/assets/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
 <script src="{% static 'root/assets/vendor/slimscroll/jquery.slimscroll.js' %}"></script>
 <script src="{% static 'root/assets/libs/js/main-js.js' %}"></script>

@@ -9,16 +9,16 @@ year = [(i, i) for i in range(1901, 2101)]
 current_year = datetime.date.today().year
 current_month = month[datetime.date.today().month - 1]
 fuel = [(i, i) for i in
-        ['Petrol', 'Petrol/CNG', 'Petrol/Hybrid', 'Petrol/LPG', 'Diesel', 'Diesel/Hybrid', 'CNG', 'LPG', 'Electric(BOV)']]
+        ['Petrol', 'Petrol/CNG', 'Petrol/Hybrid', 'Petrol/LPG', 'Diesel', 'Diesel/Hybrid', 'CNG', 'LPG',
+         'Electric(BOV)']]
 vehicle_class_choice = [(i, i) for i in ['Light Vehicles', 'Medium Heavy Vehicles', 'Large Heavy Vehicles',
                                          'Extra Large Heavy Vehicles']]
-
 
 class AddVehicleForm(forms.ModelForm):
     chassis_no = forms.CharField(label='Chassis Number')
     engine_no = forms.CharField(label='Engine Number')
     fuel_type = forms.ChoiceField(label='Type of Fuel', choices=fuel)
-    maker = forms.CharField(label='Maker\'s Name')
+    maker = forms.CharField(label='Maker')
     model = forms.CharField(label='Model Name')
     vehicle_class = forms.CharField(label='Class of vehicle')
     body_type = forms.CharField(label='Type of Body')
@@ -47,3 +47,8 @@ class AddVehicleFileForm(forms.ModelForm):
     class Meta:
         model = ManufacturerVehicleDataSheet
         fields = ['file']
+
+
+class DealerAssignForm(forms.Form):
+    select_dealer = forms.ChoiceField(label='Select Dealer', choices=get_dealers)
+    chassis_alloted = forms.CharField(label='Chassis Alloted')

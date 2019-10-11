@@ -11,5 +11,8 @@ class Dealer(models.Model):
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=50)
     state = models.CharField(max_length=50)
+    authorized_dealer = models.BooleanField(default=True)
+    authorized_brand = models.CharField(max_length=50, null=True)
+    brand_names = models.TextField(max_length=65535, null=True)
     shop_logo = models.FileField(upload_to='dealer/logo/')
     shop_license = models.FileField(upload_to='dealer/license/')

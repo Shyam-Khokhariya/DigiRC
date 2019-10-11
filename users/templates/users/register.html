@@ -5,164 +5,197 @@
 <li class="nav-item nav-link"><a href="{% url 'login' usertype %}">Login</a></li>
 {% endblock navigation %}
 {% block content %}
-	<div class="register-form col-sm-8">
-		<form method="POST" id="register-form" enctype="multipart/form-data">
-			{% csrf_token %}
-			<fieldset class="form-group">
-				{% include 'root/messages.html' %}
-				<legend class="border-bottom mb-4 pb-2">Join DigiRC</legend>
-				{% if usertype == 'manufacturer' %}
-				<div class="form-row">
-					<div class="form-group col-md-6 mb-0">
-						{{ form.company_name|as_crispy_field }}
-					</div>
-					<div class="form-group col-md-6 mb-0">
-						{{ form.owner_name|as_crispy_field }}
-					</div>
-				</div>
-				{{ form.company_email|as_crispy_field }}
-				<div class="form-row">
-					<div class="form-group col-md-6 mb-0">
-						{{ form.company_contact|as_crispy_field }}
-					</div>
-					<div class="form-group col-md-6 mb-0">
-						{{ form.owner_contact|as_crispy_field }}
-					</div>
-				</div>
-				{{ form.license_no|as_crispy_field }}
-				<div class="form-row">
-					<div class="form-group col-md-4 mb-0">
-						{{ form.address|as_crispy_field }}
-					</div>
-					<div class="form-group col-md-4 mb-0">
-						{{ form.city|as_crispy_field }}
-					</div>
-					<div class="form-group col-md-4 mb-0">
-						{{ form.state|as_crispy_field }}
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-6 mb-0">
-						{{ form.company_logo|as_crispy_field }}
-					</div>
-					<div class="form-group col-md-6 mb-0">
-						{{ form.company_license|as_crispy_field }}
-					</div>
-				</div>
-                {% elif usertype == 'dealer' %}
-				<div class="form-row">
-					<div class="form-group col-md-6 mb-0">
-						{{ form.shop_name|as_crispy_field }}
-					</div>
-					<div class="form-group col-md-6 mb-0">
-						{{ form.owner_name|as_crispy_field }}
-					</div>
-				</div>
-				{{ form.shop_email|as_crispy_field }}
-				<div class="form-row">
-					<div class="form-group col-md-6 mb-0">
-						{{ form.shop_contact|as_crispy_field }}
-					</div>
-					<div class="form-group col-md-6 mb-0">
-						{{ form.owner_contact|as_crispy_field }}
-					</div>
-				</div>
-				{{ form.license_no|as_crispy_field }}
-				<div class="form-row">
-					<div class="form-group col-md-4 mb-0">
-						{{ form.address|as_crispy_field }}
-					</div>
-					<div class="form-group col-md-4 mb-0">
-						{{ form.city|as_crispy_field }}
-					</div>
-					<div class="form-group col-md-4 mb-0">
-						{{ form.state|as_crispy_field }}
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-6 mb-0">
-						{{ form.shop_logo|as_crispy_field }}
-					</div>
-					<div class="form-group col-md-6 mb-0">
-						{{ form.shop_license|as_crispy_field }}
-					</div>
-				</div>
-                {% else %}
+<div class="register-form col-sm-8">
+    <form method="POST" id="register-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            {% include 'root/messages.html' %}
+            <legend class="border-bottom mb-4 pb-2">Join DigiRC</legend>
+            {% if usertype == 'manufacturer' %}
+<!--			Manufacturer Form-->
+            <div class="manufacturer-reg-form">
                 <div class="form-row">
-					<div class="form-group col-md-6 mb-0">
-						{{ form.name|as_crispy_field }}
-					</div>
-					<div class="form-group col-md-6 mb-0">
-						{{ form.email|as_crispy_field }}
-					</div>
+                    <div class="form-group col-md-6 mb-0">
+                        {{ form.company_name|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-6 mb-0">
+                        {{ form.owner_name|as_crispy_field }}
+                    </div>
+                </div>
+                {{ form.company_email|as_crispy_field }}
+                <div class="form-row">
+                    <div class="form-group col-md-6 mb-0">
+                        {{ form.company_contact|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-6 mb-0">
+                        {{ form.owner_contact|as_crispy_field }}
+                    </div>
+                </div>
+                {{ form.license_no|as_crispy_field }}
+                <div class="form-row">
+                    <div class="form-group col-md-4 mb-0">
+                        {{ form.address|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-4 mb-0">
+                        {{ form.city|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-4 mb-0">
+                        {{ form.state|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6 mb-0">
+                        {{ form.company_logo|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-6 mb-0">
+                        {{ form.company_license|as_crispy_field }}
+                    </div>
+                </div>
+            </div>
+            {% elif usertype == 'dealer' %}
+<!--Dealer Form -->
+            <div class="dealer-reg-form">
+                <div class="form-row">
+                    <div class="form-group col-md-6 mb-0">
+                        {{ form.shop_name|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-6 mb-0">
+                        {{ form.owner_name|as_crispy_field }}
+                    </div>
+                </div>
+                {{ form.shop_email|as_crispy_field }}
+                <div class="form-row">
+                    <div class="form-group col-md-6 mb-0">
+                        {{ form.shop_contact|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-6 mb-0">
+                        {{ form.owner_contact|as_crispy_field }}
+                    </div>
+                </div>
+				{{ form.authorized_dealer|as_crispy_field }}
+				<div class="authorized">
+					{{ form.authorized_brand|as_crispy_field }}
 				</div>
-				<div class="form-row">
-					<div class="form-group col-md-6 mb-0">
-						{{ form.father_name|as_crispy_field }}
-					</div>
-					<div class="form-group col-md-6 mb-0">
-						{{ form.husband_name|as_crispy_field }}
-					</div>
+				<div class="unauthorized">
+					{{ form.brand_names|as_crispy_field }}
 				</div>
-				<div class="form-row">
-					<div class="form-group col-md-6 mb-0">
-						{{ form.contact1|as_crispy_field }}
-					</div>
-					<div class="form-group col-md-6 mb-0">
-						{{ form.contact2|as_crispy_field }}
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-4 mb-0">
-						{{ form.gender|as_crispy_field }}
-					</div>
-					<div class="form-group col-md-4 mb-0">
-						{{ form.age|as_crispy_field }}
-					</div>
-					<div class="form-group col-md-4 mb-0">
-						{{ form.birth_place|as_crispy_field }}
-					</div>
-				</div>
-				{{ form.license_no|as_crispy_field }}
-				<div class="form-row">
-					<div class="form-group col-md-4 mb-0">
-						{{ form.address|as_crispy_field }}
-					</div>
-					<div class="form-group col-md-4 mb-0">
-						{{ form.city|as_crispy_field }}
-					</div>
-					<div class="form-group col-md-4 mb-0">
-						{{ form.state|as_crispy_field }}
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-6 mb-0">
-						{{ form.profile_pic|as_crispy_field }}
-					</div>
-					<div class="form-group col-md-6 mb-0">
-						{{ form.driving_license|as_crispy_field }}
-					</div>
-				</div>
-                {% endif %}
-			</fieldset>
-			<div class="form-group">
-				<button class="btn btn-outline-success" id="submit" type="submit">Apply For Registration</button>
-			</div>
-		</form>
-		<div class="border-top pt-3">
-			<small class="text-muted">
-				Already Have An Acoount? <a class="ml-2" href="{% url 'login' usertype %}">Sign In</a>
-			</small>
-		</div>
-	</div>
-	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+                {{ form.license_no|as_crispy_field }}
+                <div class="form-row">
+                    <div class="form-group col-md-4 mb-0">
+                        {{ form.address|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-4 mb-0">
+                        {{ form.city|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-4 mb-0">
+                        {{ form.state|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6 mb-0">
+                        {{ form.shop_logo|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-6 mb-0">
+                        {{ form.shop_license|as_crispy_field }}
+                    </div>
+                </div>
+            </div>
+            {% else %}
+<!--			Buyer Form-->
+            <div class="buyer-reg-form">
+                <div class="form-row">
+                    <div class="form-group col-md-6 mb-0">
+                        {{ form.name|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-6 mb-0">
+                        {{ form.email|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6 mb-0">
+                        {{ form.father_name|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-6 mb-0">
+                        {{ form.husband_name|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6 mb-0">
+                        {{ form.contact1|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-6 mb-0">
+                        {{ form.contact2|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4 mb-0">
+                        {{ form.gender|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-4 mb-0">
+                        {{ form.age|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-4 mb-0">
+                        {{ form.birth_place|as_crispy_field }}
+                    </div>
+                </div>
+                {{ form.license_no|as_crispy_field }}
+                <div class="form-row">
+                    <div class="form-group col-md-4 mb-0">
+                        {{ form.address|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-4 mb-0">
+                        {{ form.city|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-4 mb-0">
+                        {{ form.state|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6 mb-0">
+                        {{ form.profile_pic|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-6 mb-0">
+                        {{ form.driving_license|as_crispy_field }}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-success" id="submit" type="submit">Apply For Registration</button>
+        </div>
+    </form>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            Already Have An Acoount? <a class="ml-2" href="{% url 'login' usertype %}">Sign In</a>
+        </small>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script type="text/javascript">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
 		var file = {};
 		$('input[type="file"]').change(function(e){
 			file = e.target.files[0];
 			console.log(file);
 		});
-	</script>
+		$(document).ready(function(){
+            var value = $('#id_authorized_dealer').is(':checked');
+            console.log(value);
+            if (value==true){
+                $('.authorized').show();
+                $('.unauthorized').hide();
+            }else{
+                $('.authorized').hide();
+                $('.unauthorized').show();
+            }
+		});
+		$('#id_authorized_dealer').on('change',function(){
+            var value = $('#id_authorized_dealer').is(':checked');
+            console.log(value);
+    		$('.unauthorized').toggle();
+            $('.authorized').toggle();
+		});
+</script>
 {% endblock content %}

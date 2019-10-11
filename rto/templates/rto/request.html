@@ -64,6 +64,10 @@
                                     <td class="table-label">License No: </td>
                                     <td>{{ i.license_no }}</td>
                                 </tr>
+                                <tr>
+                                    <td class="table-label">Location: </td>
+                                    <td>{{ i.address }}, {{ i.city }}, {{ i.state }}</td>
+                                </tr>
                             </table>
                         </div>
                         <div class="col-md-6">
@@ -71,6 +75,49 @@
                             <img class="logo" style="margin-right: 50px;" src="{{ i.logo }}" alt="Logo not available"/>
                             <a class="btn btn-outline-success" href="{% url 'rto-request-accept' i.company_email %}">Accept</a>
                             <a class="btn btn-outline-danger" href="{% url 'rto-request-reject' i.company_email %}">Reject</a>
+                        </div>
+                    </div>
+                </div>
+            {% elif i.usertype == 'dealer' %}
+                <div class="container request">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <table>
+                                <tr>
+                                    <td class="table-label">Shop Name: </td>
+                                    <td>{{ i.shop_name }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-label">Owner Name: </td>
+                                    <td>{{ i.owner_name }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-label">Shop Email: </td>
+                                    <td>{{ i.shop_email }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-label">Shop Contact: </td>
+                                    <td>{{ i.shop_contact }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-label">Owner Contact: </td>
+                                    <td>{{ i.owner_contact }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-label">License No: </td>
+                                    <td>{{ i.license_no }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-label">Location: </td>
+                                    <td>{{ i.address }}, {{ i.city }}, {{ i.state }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <img class="license" src="{{ i.license }}" alt="License not available"/>
+                            <img class="logo" style="margin-right: 50px;" src="{{ i.logo }}" alt="Logo not available"/>
+                            <a class="btn btn-outline-success" href="{% url 'rto-request-accept' i.shop_email %}">Accept</a>
+                            <a class="btn btn-outline-danger" href="{% url 'rto-request-reject' i.shop_email %}">Reject</a>
                         </div>
                     </div>
                 </div>

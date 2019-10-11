@@ -1,30 +1,54 @@
 {% extends 'manufacturer/base.html' %}
 {% load static %}
+{% load fontawesome %}
 {% load tags_extra %}
 {% block js %}
 <script type="text/javascript">
+    $(document).ready(function(){
+        console.log('hello');
+        $('.unavailable').hide();
+    });
     function searchNav(){
         value = $('#search-nav').val()
         var x = document.getElementsByClassName("vehicle");
+        var flag=0;
         for (var i=0;i<x.length;i++){
             if(x[i].id.indexOf(value)==-1){
                 $("#" + x[i].id).hide();
             }else{
+                flag=1;
                 $("#" + x[i].id).show();
             }
+        }
+        if(flag==0){
+            $('.available').hide();
+            $('.unavailable').show();
+        }else{
+            $('.unavailable').hide();
+            $('.available').show();
         }
     }
     function searchLeft(){
         value = $('#search-left').val()
         var x = document.getElementsByClassName("vehicle");
+        var flag=0;
         for (var i=0;i<x.length;i++){
             if(x[i].id.indexOf(value)==-1){
                 $("#" + x[i].id).hide();
             }else{
+                flag=1;
                 $("#" + x[i].id).show();
             }
         }
+        if(flag==0){
+            $('.available').hide();
+            $('.unavailable').show();
+        }else{
+            $('.unavailable').hide();
+            $('.available').show();
+        }
     }
+
 </script>
 {% endblock js %}
 {% block style %}
@@ -39,72 +63,90 @@ th, td{
 .pagination{
     margin: 10px auto;
 }
+
 </style>
 {% endblock style %}
 {% block content %}
 <div class="display-manufactured-data table-responsive">
-    {% if vehicles|length > 0 %}
-    <div class="pagination">
-        <span class="step-links">
-            {% if vehicles.has_previous %}
-                <span>&laquo; </span>
-                <a class="btn btn-outline-info" href="?page=1">First</a>
-                <a class="btn btn-outline-info" href="?page={{ vehicles.previous_page_number }}">Prev</a>
-            {% endif %}
+    <div class="available">
+        {% if vehicles|length > 0 %}
+        <div class="pagination">
+            <span class="step-links">
+                {% if vehicles.has_previous %}
+                    <span>&laquo; </span>
+                    <a class="btn btn-outline-info" href="?page=1">First</a>
+                    <a class="btn btn-outline-info" href="?page={{ vehicles.previous_page_number }}">Prev</a>
+                {% endif %}
 
-            <span class="current">
-                Page {{ vehicles.number }} of {{ vehicles.paginator.num_pages }}
+                <span class="current">
+                    Page {{ vehicles.number }} of {{ vehicles.paginator.num_pages }}
+                </span>
+
+                {% if vehicles.has_next %}
+                    <a class="btn btn-outline-info" href="?page={{ vehicles.next_page_number }}">Next</a>
+                    <a class="btn btn-outline-info" href="?page={{ vehicles.paginator.num_pages }}">Last</a>
+                    <span>&raquo; </span>
+                {% endif %}
             </span>
+        </div>
+        <table class="table-bordered text-center" width="100%">
+            <tr>
+                <th>Chassis No</th>
+                <th>Model</th>
+                <th>Fuel Used</th>
+                <th>Mfg. Month/Year</th>
+                <th>Price</th>
+                <th>delivery status</th>
+                <th>Update/Delete</th>
+            </tr>
 
-            {% if vehicles.has_next %}
-                <a class="btn btn-outline-info" href="?page={{ vehicles.next_page_number }}">Next</a>
-                <a class="btn btn-outline-info" href="?page={{ vehicles.paginator.num_pages }}">Last</a>
-                <span>&raquo; </span>
-            {% endif %}
-        </span>
-    </div>
-    <table class="table-bordered text-center" width="100%">
-        <tr>
-            <th>Chassis No</th>
-            <th>Model</th>
-            <th>Fuel Used</th>
-            <th>Mfg. Month/Year</th>
-            <th>Price</th>
-            <th>status</th>
-        </tr>
+            {% for vehicle in vehicles %}
+            <tr class="vehicle" id="{{ vehicle.chassis_no }}">
+                <td>
+                    <a href="{% url 'manufacturer-display-vehicle-detail' vehicle.chassis_no %}">
+                        {{ vehicle.chassis_no }}</a>
+                </td>
+                <td>{{ vehicle.model }}</td>
+                <td>{{ vehicle.fuel_type }}</td>
+                <td>{{ vehicle.manufacture_month|month_name }}, {{ vehicle.manufacture_year }}</td>
+                <td>{{ vehicle.price }}</td>
+                <td>{{ vehicle.delivery_status }}</td>
+                <td>
+                <span>
+                    <a class="btn btn-outline-info" href="{% url 'vehicle-update' vehicle.chassis_no %}"><i
+                            class="fas fa-edit"></i></a>
+                    <a class="btn btn-outline-danger" href="{% url 'vehicle-delete' vehicle.chassis_no %}"><i
+                            class="fas fa-eraser"></i></a>
+                </span>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <div class="pagination">
+            <span class="step-links">
+                {% if vehicles.has_previous %}
+                    <span>&laquo; </span>
+                    <a class="btn btn-outline-info" href="?page=1">First</a>
+                    <a class="btn btn-outline-info" href="?page={{ vehicles.previous_page_number }}">Prev</a>
+                {% endif %}
 
-        {% for vehicle in vehicles %}
-        <tr class="vehicle" id="{{ vehicle.chassis_no }}">
-            <td><a href="{% url 'manufacturer-display-vehicle-detail' vehicle.chassis_no %}">{{ vehicle.chassis_no }}</a></td>
-            <td>{{ vehicle.model }}</td>
-            <td>{{ vehicle.fuel_type }}</td>
-            <td>{{ vehicle.manufacture_month|month_name }}, {{ vehicle.manufacture_year }}</td>
-            <td>{{ vehicle.price }}</td>
-            <td>{{ vehicle.status }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-    <div class="pagination">
-        <span class="step-links">
-            {% if vehicles.has_previous %}
-                <span>&laquo; </span>
-                <a class="btn btn-outline-info" href="?page=1">First</a>
-                <a class="btn btn-outline-info" href="?page={{ vehicles.previous_page_number }}">Prev</a>
-            {% endif %}
+                <span class="current">
+                    Page {{ vehicles.number }} of {{ vehicles.paginator.num_pages }}
+                </span>
 
-            <span class="current">
-                Page {{ vehicles.number }} of {{ vehicles.paginator.num_pages }}
+                {% if vehicles.has_next %}
+                    <a class="btn btn-outline-info" href="?page={{ vehicles.next_page_number }}">Next</a>
+                    <a class="btn btn-outline-info" href="?page={{ vehicles.paginator.num_pages }}">Last</a>
+                    <span>&raquo; </span>
+                {% endif %}
             </span>
-
-            {% if vehicles.has_next %}
-                <a class="btn btn-outline-info" href="?page={{ vehicles.next_page_number }}">Next</a>
-                <a class="btn btn-outline-info" href="?page={{ vehicles.paginator.num_pages }}">Last</a>
-                <span>&raquo; </span>
-            {% endif %}
-        </span>
+        </div>
+        {% else %}
+        <h4>No Vehicles Manufactured</h4>
+        {% endif %}
     </div>
-    {% else %}
-    <h4>No Vehicles Manufactured</h4>
-    {% endif %}
+    <div class="unavailable">
+        <h4 class="text-center">Vehicle Searched is Not Available</h4>
+    </div>
 </div>
 {% endblock content %}

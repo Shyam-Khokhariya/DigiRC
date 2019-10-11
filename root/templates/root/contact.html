@@ -10,7 +10,6 @@
     subject = $("#id_subject").val();
     message = $("#id_message").val();
     csrftoken = $("input[name='csrfmiddlewaretoken']").val();
-<!--    console.log(csrftoken);-->
     $.ajax({
       url: "",
       type: "POST",

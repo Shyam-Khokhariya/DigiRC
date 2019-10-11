@@ -1,0 +1,51 @@
+{% extends 'manufacturer/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'root/css/style.css' %}">
+<style>
+body{
+    overflow-x: scroll !important;
+}
+@media only screen and (min-width:992px){
+    .add-form-border{
+        border-right: 2px solid #eeeeee;
+    }
+}
+.form-control[readonly]{
+    background-color: #ffffff;
+}
+</style>
+{% endblock style %}
+{% block content %}
+<div class="add-vehicle-form">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% if form is not None %}
+    <legend class="border-bottom pb-2 text-center">Update Vehicle Details</legend>
+    <div class="add-form-border pt-3">
+        <form method="POST">
+            <!-- This is important for security purpose -->
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <div class="row">
+                    {% for field in form %}
+                    <div class="col-md-6">
+                        {{ field|as_crispy_field }}
+                    </div>
+                    {% endfor %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-success btn-block py-2" type="submit">Update</button>
+            </div>
+        </form>
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}

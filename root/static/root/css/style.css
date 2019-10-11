@@ -13972,7 +13972,9 @@ textarea.form-control {
 
 @media only screen and (max-width:768px){
     .add-vehicle-form,
-    .display-manufactured-data{
+    .display-manufactured-data,
+    .profile-content,
+    .dealer-content{
         padding: 30px 30px;
         margin: 30px 20px;
     }
@@ -13987,7 +13989,9 @@ textarea.form-control {
 @media only screen and (min-width:768px){
     .add-vehicle-form,
     .display-manufactured-data,
-    .display-vehicle-data{
+    .display-vehicle-data,
+    .profile-content,
+    .dealer-content{
         padding: 30px 50px;
         margin: 30px 20px 30px 280px;
         width: 77%;

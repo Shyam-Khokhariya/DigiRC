@@ -8,7 +8,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <script type="text/javascript" src="{% static 'root/FusionChartjs/fusioncharts.js' %}"></script>
+    <script src="{% static 'root/assets/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'root/FusionChartjs/fusioncharts.js' %}"></script>
 
     <script type="text/javascript" src="{% static 'root/FusionChartjs/themes/fusioncharts.theme.fusion.js' %}"></script>
 
@@ -30,7 +31,8 @@
     <link rel="stylesheet" href="{% static 'root/assets/vendor/charts/c3charts/c3.css' %}">
     <link rel="stylesheet" href="{% static 'root/assets/vendor/fonts/flag-icon-css/flag-icon.min.css' %}">
     <link rel="stylesheet" href="{% static 'root/css/style.css' %}">
-    <link rel="shortcut icon" href="{% static 'root/images/favicon.ico' %}" type="image/vnd.microsoft.icon"/>
+    <link rel="shortcut icon" href="{% static 'root/images/favicon.png' %}" type="image/png" />
+
 
     {% block style %}
     {% endblock %}
@@ -54,7 +56,7 @@
                     <li class="nav-item">
                         <div class="custom-search top-search-bar">
                             <input type="text" class="form-control" id="search-nav" name="search" placeholder="Search.."
-                                   onkeyup="searchNav()"/>
+                                   onkeyup="searchNav(event)"/>
                         </div>
                     </li>
                     {% endif %}
@@ -82,8 +84,12 @@
                                     class="fa fa-fw fa-car"></i>Add New Vehicle</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'manufacturer-display-manufactured' %}"
+                            <a class="nav-link" href="{% url 'manufacturer-display' %}"
                                aria-controls="submenu-2"><i class="fa fa-fw fa-chart-pie"></i>Manufactured Vehicles</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'vehicle-dealer-assign' %}"
+                               aria-controls="submenu-2"><i class="fa fa-fw fa-chart-pie"></i>Assign Dealers</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#" aria-controls="submenu-2"><i class="fa fa-fw fa-user"></i>About</a>
@@ -96,7 +102,7 @@
                         <li class="nav-item search-sm">
                             <div id="custom-search" class="top-search-bar">
                                 <input type="text" class="form-control" id="search-left" name="search" placeholder="Search.."
-                                       onkeyup="searchLeft()"/>
+                                       onkeyup="searchLeft(event)"/>
                             </div>
                         </li>
                         {% endif %}
@@ -109,8 +115,6 @@
     {% block content %}
     {% endblock %}
 </div>
-
-<script src="{% static 'root/assets/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
 <script src="{% static 'root/assets/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
 <script src="{% static 'root/assets/vendor/slimscroll/jquery.slimscroll.js' %}"></script>
 <script src="{% static 'root/assets/libs/js/main-js.js' %}"></script>
